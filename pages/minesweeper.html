@@ -1,92 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Minesweeper2</title>
-    <link rel="stylesheet" href="../css/minesweeper/main.css" type="text/css">
-    <link rel="stylesheet" href="../css/minesweeper/game.css" type="text/css">
-    <link rel="stylesheet" href="../css/minesweeper/header.css" type="text/css">
-    <link rel="stylesheet" href="../css/minesweeper/settings.css" type="text/css">
-    <script src="../js/minesweeper/game.js" type="application/ecmascript"></script>
-    <script src="../js/minesweeper/stats.js" type="application/ecmascript"></script>
-
-</head>
-<body class="mainBox">
-
-<div id="infoBox">
-    <h1>Minesweeper</h1>
-    <button id="settingsButton">Settings</button>
-    <br/>
-    <div class="settingsOutBox" id="settingsOutBox">
-        <div class="settingsBox">
-            <div class="settingsHeader">
-                <p>Settings</p>
-                <p id="closeSettings">X</p>
+<div class="mainBox">
+    <div id="infoBox">
+        <h1>Minesweeper</h1>
+        <button id="settingsButton">Settings</button>
+        <br/>
+        <div class="settingsOutBox" id="settingsOutBox">
+            <div class="settingsBox">
+                <div class="settingsHeader">
+                    <p>Settings</p>
+                    <p id="closeSettings">X</p>
+                </div>
+                <br/>
+                <p>Einstellungen</p>
+                <form action="">
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="beginner">Anfänger</label>
+                                <input type="radio" id="beginner" name="mode"/>
+                            </td>
+                            <td>
+                                <label for="heightInput">Höhe</label>
+                                <input id="heightInput" type="text" value="0"/>
+                                <br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="intermediate">Fortgeschritten</label>
+                                <input type="radio" id="intermediate" name="mode"/>
+                            </td>
+                            <td>
+                                <label for="widthInput">Breite</label>
+                                <input id="widthInput" type="text"/>
+                                <br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="expert">Experte</label>
+                                <input type="radio" id="expert" name="mode" checked="checked"/>
+                            </td>
+                            <td>
+                                <label for="mineInput">Minen</label>
+                                <input id="mineInput" type="text"/>
+                                <br/>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <p id="deleteRecords">Rekorde löschen</p>
             </div>
-            <br/>
-            <p>Einstellungen</p>
-            <form action="">
-                <table>
-                    <tr>
-                        <td>
-                            <label for="beginner">Anfänger</label>
-                            <input type="radio" id="beginner" name="mode"/>
-                        </td>
-                        <td>
-                            <label for="heightInput">Höhe</label>
-                            <input id="heightInput" type="text" value="0"/>
-                            <br/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="intermediate">Fortgeschritten</label>
-                            <input type="radio" id="intermediate" name="mode"/>
-                        </td>
-                        <td>
-                            <label for="widthInput">Breite</label>
-                            <input id="widthInput" type="text"/>
-                            <br/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="expert">Experte</label>
-                            <input type="radio" id="expert" name="mode" checked="checked"/>
-                        </td>
-                        <td>
-                            <label for="mineInput">Minen</label>
-                            <input id="mineInput" type="text"/>
-                            <br/>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-            <p id="deleteRecords">Rekorde löschen</p>
         </div>
-    </div>
-    <br/>
-    <button id="startNewGameButton">Neues Spiel</button>
-    <br/>
-    <br/>
+        <br/>
+        <button id="startNewGameButton">Neues Spiel</button>
+        <br/>
+        <br/>
 
-    <div id="header">
-        <div class="header-module">
-            <p class="info-text">Anzahl Minen:</p>
-            <p id="mineCounter"></p>
+        <div id="header">
+            <div class="header-module">
+                <p class="info-text">Anzahl Minen:</p>
+                <p id="mineCounter"></p>
+            </div>
+            <div class="header-module">
+                <p class="info-text">Sekunden:</p>
+                <p id="secCounter">0</p>
+            </div>
         </div>
-        <div class="header-module">
-            <p class="info-text">Sekunden:</p>
-            <p id="secCounter">0</p>
-        </div>
+        <p id="recordText"></p>
+        <p id="winText" class="endText">Gewonnen!</p>
+        <p id="loseText" class="endText">Verloren!</p>
     </div>
-    <p id="recordText"></p>
-    <p id="winText" class="endText">Gewonnen!</p>
-    <p id="loseText" class="endText">Verloren!</p>
+    <table id="gameboard" oncontextmenu="return false;"/>
+
+    <script src="../js/minesweeper/minesweeperPage.js" type="application/ecmascript"></script>
 </div>
-<table id="gameboard" oncontextmenu="return false;"/>
 
-<script src="../js/minesweeper/minesweeperPage.js" type="application/ecmascript"></script>
 
-</body>
-</html>

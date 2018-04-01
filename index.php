@@ -18,6 +18,17 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="adminlte/dist/css/skins/_all-skins.min.css">
 
+    <!-- Minesweeper -->
+    <link rel="stylesheet" href="css/minesweeper/game.css">
+    <link rel="stylesheet" href="css/minesweeper/main.css">
+    <link rel="stylesheet" href="css/minesweeper/header.css">
+    <link rel="stylesheet" href="css/minesweeper/settings.css">
+    <script src="js/minesweeper/game.js" type="application/ecmascript"></script>
+    <script src="js/minesweeper/stats.js" type="application/ecmascript"></script>
+    <script src="js/minesweeper/minesweeperPage.js" type="application/ecmascript"></script>
+
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -97,14 +108,22 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href=""><i class="fa fa-table"></i>Übersicht</a></li>
-                        <li><a target="_blank" href="https://github.com/Janek7"><i class="fa fa-code-fork"></i>Git</a></li>
+                        <li><a target="_blank" href="https://github.com/Janek7"><i class="fa fa-code-fork"></i>Git</a>
+                        </li>
                     </ul>
                 </li>
 
-                <li class="treeview">
-                    <a href="#">
+                <li>
+                    <a href="">
                         <i class="fa fa-book"></i>
                         <span>Hochschule</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="index.php?page=pages/test.php">
+                        <i class="fa fa-cog"></i>
+                        <span>Test</span>
                     </a>
                 </li>
 
@@ -122,7 +141,7 @@
                     </ul>
                 </li>
 
-                <li class="treeview">
+                <li>
                     <a href="#">
                         <i class="fa fa-sticky-note"></i>
                         <span>Notizen</span>
@@ -132,7 +151,7 @@
                     </a>
                 </li>
 
-                <li class="treeview">
+                <li>
                     <a href="#">
                         <i class="fa fa-check-square-o"></i>
                         <span>Todo</span>
@@ -150,7 +169,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a target="_blank" href="https://janek7.github.io/Minesweeper/index.html"><i class="fa fa-bomb"></i>Minesweeper</a></li>
+                        <li><a href="index.php?page=pages/minesweeper.html"><i class="fa fa-bomb"></i>Minesweeper</a></li>
                     </ul>
                 </li>
 
@@ -181,7 +200,19 @@
         <!-- Main content -->
         <section class="content">
             <?php
-                include "pages/test.php";
+
+            include "functions/utils.php";
+            foreach ($_GET as $test) {
+                echo $test;
+            }
+            if (isset($_GET['page'])) {
+                $page = $_GET['page'];
+                $page = getPage($page);
+                include($page);
+            } else {
+                include('pages/main.php');
+            }
+
             ?>
         </section>
         <!-- /.content -->

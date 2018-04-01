@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# Fix trailing slash
+RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+# Rewrite URL to match pages
+RewriteRule ^([0-9a-zA-Z]+)$ index.php?page=$1 [QSA]
+
+ErrorDocument error404 /index.php?page=pages/404.php
