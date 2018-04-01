@@ -18,23 +18,17 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="adminlte/dist/css/skins/_all-skins.min.css">
 
-    <!-- Minesweeper -->
-    <link rel="stylesheet" href="css/minesweeper/game.css">
-    <link rel="stylesheet" href="css/minesweeper/main.css">
-    <link rel="stylesheet" href="css/minesweeper/header.css">
-    <link rel="stylesheet" href="css/minesweeper/settings.css">
-    <script src="js/minesweeper/game.js" type="application/ecmascript"></script>
-    <script src="js/minesweeper/stats.js" type="application/ecmascript"></script>
-    <script src="js/minesweeper/minesweeperPage.js" type="application/ecmascript"></script>
+    <?php
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+        if ($page == 'pages/?') {
+            //echo link element
+        }
+    }
+    ?>
 
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
     <!-- Google Font -->
     <link rel="stylesheet"
@@ -44,7 +38,7 @@
 <div class="wrapper">
     <header class="main-header">
         <!-- Logo -->
-        <a href="" class="logo">
+        <a href="index.php?page=pages/main.php" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>D</span>
             <!-- logo for regular state and mobile devices -->
@@ -169,7 +163,8 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="index.php?page=pages/minesweeper.html"><i class="fa fa-bomb"></i>Minesweeper</a></li>
+                        <li><a target="_blank" href="https://janek7.github.io/Minesweeper/index.html"><i class="fa fa-bomb"></i>Minesweeper</a>
+                        </li>
                     </ul>
                 </li>
 
@@ -184,39 +179,17 @@
         <!-- /.sidebar -->
     </aside>
 
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Titel
-                <small>Beschreibung</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
-        </section>
+    <?php
+    include "functions/utils.php";
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+        $page = getPage($page);
+        include($page);
+    } else {
+        include('pages/main.php');
+    }
 
-        <!-- Main content -->
-        <section class="content">
-            <?php
-
-            include "functions/utils.php";
-            foreach ($_GET as $test) {
-                echo $test;
-            }
-            if (isset($_GET['page'])) {
-                $page = $_GET['page'];
-                $page = getPage($page);
-                include($page);
-            } else {
-                include('pages/main.php');
-            }
-
-            ?>
-        </section>
-        <!-- /.content -->
-    </div>
+    ?>
 
     <!-- /.content-wrapper -->
     <footer class="main-footer">
