@@ -1,0 +1,11 @@
+body {
+    font-family: Arial;
+}
+
+.mainBox {
+    display: inline-flex;
+}
+
+#infoBox {
+    margin-right: 30pt;
+}

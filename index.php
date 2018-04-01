@@ -198,7 +198,7 @@
     <!-- ./wrapper -->
 
     <!-- Eigenes JS -->
-    <script src="js/df.js"></script>
+    <script src="js/indexPage.js"></script>
 
     <!-- jQuery 3 -->
     <script src="adminlte/bower_components/jquery/dist/jquery.min.js"></script>
