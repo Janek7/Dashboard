@@ -1,0 +1,1 @@
+<img src="images/404.png" alt="Error404 Image"/>

@@ -8,13 +8,20 @@
  * @return string
  */
 
-function getPage($pagename) {
-    //page? pages/main.php
-    $path = "$pagename";
+function getPage() {
+    //index.php?page=example
 
-    if (file_exists($path)) {
-        return ($path);
+    global $pages;
+    if (isset($_GET['page'])) {
+        $pagename = $_GET['page'];
+        $path = "pages/" . $pagename . ".php";
+        if (!file_exists($path)) {
+            $pagename = "error";
+        } else {
+            $pagename = "error";
+        }
+        return $pages[$pagename];
     } else {
-        return "pages/error404.php";
+        return $pages['main'];
     }
 }

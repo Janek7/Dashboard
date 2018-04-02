@@ -1,9 +1,17 @@
+<?php
+include "functions/utils.php";
+include 'entities/Page.php';
+
+$page = getPage();
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Dashboard</title>
+    <title><?php $page->getTitle()?></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -18,21 +26,19 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="adminlte/dist/css/skins/_all-skins.min.css">
 
-    <?php
-    if (isset($_GET['page'])) {
-        $page = $_GET['page'];
-        if ($page == 'pages/?') {
-            //echo link element
-        }
-    }
-    ?>
-
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <!-- Spezielle Sheets -->
+    <?php
+    if ($page->hasExtraSheets()) {
+        echo $page->getExtraSheets();
+    }
+    ?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -115,7 +121,7 @@
                 </li>
 
                 <li>
-                    <a href="index.php?page=pages/test.php">
+                    <a href="index.php?page=test">
                         <i class="fa fa-cog"></i>
                         <span>Test</span>
                     </a>
@@ -163,7 +169,8 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a target="_blank" href="https://janek7.github.io/Minesweeper/index.html"><i class="fa fa-bomb"></i>Minesweeper</a>
+                        <li><a target="_blank" href="https://janek7.github.io/Minesweeper/index.html"><i
+                                        class="fa fa-bomb"></i>Minesweeper</a>
                         </li>
                     </ul>
                 </li>
@@ -179,19 +186,30 @@
         <!-- /.sidebar -->
     </aside>
 
-    <?php
-    include "functions/utils.php";
-    if (isset($_GET['page'])) {
-        $page = $_GET['page'];
-        $page = getPage($page);
-        include($page);
-    } else {
-        include('pages/main.php');
-    }
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                <?php
+                echo $page->getHeader();
+                ?>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active"><?php echo $page->getNavText()?></li>
+            </ol>
+        </section>
 
-    ?>
-
+        <!-- Main content -->
+        <section class="content">
+            <?php
+            echo $page->getContent();
+            ?>
+        </section>
+        <!-- /.content -->
+    </div>
     <!-- /.content-wrapper -->
+
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
             <b>Version</b> 1.0
