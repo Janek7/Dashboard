@@ -2,6 +2,11 @@
 include "functions/utils.php";
 include 'entities/Page.php';
 
+//if session[user] == leer -> page = login bzw register
+if (!isset($_SESSION['userid'])) {
+    require "pages/login.php";
+    exit(0);
+}
 $page = getPage();
 
 ?>
