@@ -63,7 +63,7 @@ $b = !file_exists("index.php");
         </form>
 
         <a href="#">Passwort vergessen</a><br>
-        <a href="<?php if($b) echo "pages/" ?>register.php" class="text-center">Registrieren</a>
+        <a href="<?php if(!$b) echo "pages/" ?>register.php" class="text-center">Registrieren</a>
 
     </div>
     <!-- /.login-box-body -->
