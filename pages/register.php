@@ -30,6 +30,36 @@ if ($rr) {
     if (empty($confirmedPassword)) array_push($errors, "Bitte bestätige dein Passwort!");
     if ($password != $confirmedPassword && !empty($password) && !empty($confirmedPassword))
         array_push($errors, "Die Passwörter stimmen nicht überein");
+
+    //Angegebene Daten mit Userdaten aus DB auf doppelte Werte prüfen
+    $sql = "SELECT * FROM users WHERE name = '$user' OR email = '$email'";
+    $checkUserEmailResult = $conn->query($sql);
+    while ($row = $checkUserEmailResult->fetch_assoc()) {
+        echo "yoo";
+        if ($row['name'] == $user) {
+            array_push($errors, "Es existiert bereits ein Account mit dem Namen '$user'!");
+        }
+        if ($row['email'] == $email) {
+            array_push($errors, "Es existiert bereits ein Account mit der Email '$email'!");
+        }
+        echo count($errors);
+    }
+
+
+    //Wenn kein Fehler aufgetreten ist insert und weiterleiten
+    if (count($errors) == 0) {
+        //Eintragen
+        $hashed_pw = password_hash($password, PASSWORD_DEFAULT);
+        $insertQuery = "INSERT INTO users (name, email, password) VALUES('$user', '$email', '$hashed_pw')";
+        $conn->query($insertQuery);
+        //ID auslesen
+        $useridResult = $conn->query("SELECT id FROM users WHERE name = '$user'");
+        $result = $useridResult->fetch_assoc();
+        $_SESSION['userid'] = $result['id'];
+        $_SESSION['username'] = $user;
+
+        header("Location: ../index.php");
+    }
 }
 
 //password_hash("rasmuslerdorf", PASSWORD_DEFAULT)."\n"
@@ -80,22 +110,22 @@ if ($rr) {
         <form action="register.php" method="post">
             <div class="form-group has-feedback">
                 <input name="userInput" type="text" class="form-control" placeholder="Name"
-                    <?php if ($rr && isset($_POST['userInput'])) echo "value=\"". $_POST['userInput'] . "\""?>>
+                    <?php if ($rr && isset($_POST['userInput'])) echo "value=\"" . $_POST['userInput'] . "\"" ?>>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
                 <input name="emailInput" type="email" class="form-control" placeholder="Email"
-                    <?php if ($rr && isset($_POST['emailInput'])) echo "value=\"". $_POST['emailInput'] . "\""?>>
+                    <?php if ($rr && isset($_POST['emailInput'])) echo "value=\"" . $_POST['emailInput'] . "\"" ?>>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
                 <input name="pwInput" type="password" class="form-control" placeholder="Password"
-                    <?php if ($rr && isset($_POST['pwInput'])) echo "value=\"". $_POST['pwInput'] . "\""?>>
+                    <?php if ($rr && isset($_POST['pwInput'])) echo "value=\"" . $_POST['pwInput'] . "\"" ?>>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
                 <input name="pwcInput" type="password" class="form-control" placeholder="Passwort bestätigen"
-                    <?php if ($rr  && isset($_POST['pwcInput'])) echo "value=\"". $_POST['pwcInput'] . "\""?>>
+                    <?php if ($rr && isset($_POST['pwcInput'])) echo "value=\"" . $_POST['pwcInput'] . "\"" ?>>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <?php if (count($errors) > 0) : ?>
