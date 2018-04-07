@@ -12,9 +12,11 @@ if ($_SESSION['verified'] == "0") {
     header("Location: pages/unverified.php");
 }
 $page = getPage();
+logLastActivity($page);
 ?>
 
 <!DOCTYPE html>
+<!-- Teeeest-->
 <html>
 <head>
     <meta charset="utf-8">
@@ -41,12 +43,9 @@ $page = getPage();
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-    <!-- Spezielle Sheets -->
-    <?php
-    if ($page->hasExtraSheets()) {
-        echo $page->getExtraSheets();
-    }
-    ?>
+    <!-- Eigene CSS Sheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <?php echo $page->getExtraCSSSheets()?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -237,8 +236,9 @@ $page = getPage();
     </footer>
     <!-- ./wrapper -->
 
-    <!-- Eigenes JS -->
+    <!-- Eigene JS Scripts -->
     <script src="js/indexPage.js"></script>
+    <?php echo $page->getExtraJSScripts() ?>
 
     <!-- jQuery 3 -->
     <script src="adminlte/bower_components/jquery/dist/jquery.min.js"></script>

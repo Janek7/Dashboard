@@ -34,14 +34,15 @@ global $users;
                             <td><?php echo $user->getEmail() ?></td>
                             <td><?php echo $user->getRegisterDate() ?></td>
                             <?php
-                            echo "<td>";
+                            echo "<td><a href><span class = ";
                             if ($user->getVerified() == "1") {
-                                echo "<span class = \"label label-success\">Verfiziert</span>";
+                                echo "\"label label-success verifiedLabel\">Verfiziert";
                             } else {
-                                echo "<span class=\"label label-danger\">Unverfiziert</span>";
+                                echo "\"label label-danger verifiedLabel\">Unverfiziert";
                             }
-                            echo "</td>";
+                            echo "</span></a></td>";
                             ?>
+                            <td>Betrachtete am <?php echo $user->getLastActivity()?> die Seite <?php echo $user->getLastPage()?></td>
                             <!-- //last activity-->
                         </tr>
                     <?php endforeach ?>

@@ -7,47 +7,51 @@
  */
 
 $pages = [
-    'main' => new Page("Startseite", "", "Willkommen im Dashboard", "main"),
-    'error' => new Page("Error", "", "Seite nicht gefunden :/", "error"),
-    'test' => new Page("Test", "", "Nur zum Testen", "test"),
-    'userManagement' => new Page("Nutzer", "", "Verwaltung der Nutzer", "userManagement")
+    'main' => new Page("Startseite", "Willkommen im Dashboard", "main", "", ""),
+    'error' => new Page("Error", "Seite nicht gefunden :/", "error", "", ""),
+    'test' => new Page("Test", "Nur zum Testen", "test", "", ""),
+    'userManagement' => new Page("Nutzer", "Verwaltung der Nutzer", "userManagement",
+        "<link rel=\"stylesheet\" href=\"css/userManagement.css\">",
+        "<script src=\"js/userManagementPage.js\"></script>")
 ];
 
 class Page {
 
     private $name;
-    private $extraSheets;
     private $headerSmall;
     private $fileName;
+    private $extraCSSSheets;
+    private $extraJSScripts;
 
-    function __construct($name, $extraSheets, $headerSmall, $fileName) {
+    public function __construct($name, $headerSmall, $fileName, $extraCSSSheets, $extraJSScripts) {
         $this->name = $name;
-        $this->extraSheets = $extraSheets;
         $this->headerSmall = $headerSmall;
         $this->fileName = $fileName;
+        $this->extraCSSSheets = $extraCSSSheets;
+        $this->extraJSScripts = $extraJSScripts;
     }
 
-    function getTitle() {
+    public function getTitle() {
         return $this->name . " | Dashboard";
     }
 
-    function getHeader() {
+    public function getHeader() {
         return $this->name . "<small>" . $this->headerSmall . "</small>";
     }
 
-    function hasExtraSheets() {
-        return $this->extraSheets != "";
+    public function getExtraCSSSheets() {
+        return $this->extraCSSSheets;
     }
 
-    function getExtraSheets() {
-        return $this->extraSheets;
+    public function getExtraJSScripts() {
+        return $this->extraJSScripts;
     }
 
-    function getNavText() {
+    public function getNavText() {
         return $this->name;
     }
 
-    function getContent() {
+    public function getContent() {
         return include("pages/" . $this->fileName . ".php");
     }
 

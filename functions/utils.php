@@ -8,6 +8,9 @@
  * @return string
  */
 
+require 'database.php';
+global $conn;
+
 function getPage() {
     //index.php?page=example
 
@@ -22,4 +25,12 @@ function getPage() {
     } else {
         return $pages['main'];
     }
+}
+
+function logLastActivity($page) {
+    $userid = $_SESSION['userid'];
+    $lastPage = $page->getNavText();
+    $sql = "UPDATE users SET last_page = '$lastPage', last_activity = CURRENT_TIMESTAMP() WHERE id = '$userid'";
+    global $conn;
+    $conn->query($sql);
 }

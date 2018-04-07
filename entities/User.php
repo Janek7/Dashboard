@@ -68,7 +68,6 @@ class User {
         return $this->verifier;
     }
 
-
     public function getVerifyDate() {
         return $this->verifyDate->format('Y-m-d H:i:s');
     }
@@ -79,6 +78,12 @@ class User {
 
     public function getLastPage() {
         return $this->lastPage;
+    }
+
+
+
+    public function getVerifiedLabelID() {
+        return "verifiedLabel" . $this->id;
     }
 
 }
