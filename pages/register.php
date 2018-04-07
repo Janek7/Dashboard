@@ -1,6 +1,7 @@
 <?php
 require "../functions/database.php";
 global $conn;
+session_start();
 
 //Prüft in welchem Pfad die Page aufgerufen wird -> Imports müssen auf den Pfad angepasst werden
 $f = !file_exists("index.php");
@@ -35,14 +36,12 @@ if ($rr) {
     $sql = "SELECT * FROM users WHERE name = '$user' OR email = '$email'";
     $checkUserEmailResult = $conn->query($sql);
     while ($row = $checkUserEmailResult->fetch_assoc()) {
-        echo "yoo";
         if ($row['name'] == $user) {
             array_push($errors, "Es existiert bereits ein Account mit dem Namen '$user'!");
         }
         if ($row['email'] == $email) {
             array_push($errors, "Es existiert bereits ein Account mit der Email '$email'!");
         }
-        echo count($errors);
     }
 
 
@@ -55,16 +54,13 @@ if ($rr) {
         //ID auslesen
         $useridResult = $conn->query("SELECT id FROM users WHERE name = '$user'");
         $result = $useridResult->fetch_assoc();
+        global $_SESSION;
         $_SESSION['userid'] = $result['id'];
         $_SESSION['username'] = $user;
 
         header("Location: ../index.php");
     }
 }
-
-//password_hash("rasmuslerdorf", PASSWORD_DEFAULT)."\n"
-
-//wenn alles ok abbrechen und auf index weiterleiten
 ?>
 
 
@@ -88,8 +84,9 @@ if ($rr) {
     <link rel="stylesheet" href="<?php if ($f) echo "../" ?>adminlte/dist/css/AdminLTE.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="<?php if ($f) echo "../" ?>adminlte/plugins/iCheck/square/blue.css">
+
     <!-- Eigenes File für Fehler -->
-    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/userAuth.css">
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>

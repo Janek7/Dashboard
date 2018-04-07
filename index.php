@@ -3,12 +3,12 @@ require "functions/utils.php";
 require 'entities/Page.php';
 
 //if session[user] == leer -> page = login bzw register
+session_start();
 if (!isset($_SESSION['userid'])) {
-    include "pages/login.php";
-    exit(0);
+    header("Location: pages/login.php");
+
 }
 $page = getPage();
-
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +70,7 @@ $page = getPage();
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">Janek</span>
+                            <span class="hidden-xs"><?php echo $_SESSION['username']?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -80,6 +80,9 @@ $page = getPage();
                             </li>
                             <!-- Menu Body -->
                         </ul>
+                    </li>
+                    <li>
+                        <a href="functions/logout.php"><i class="fa fa-power-off"></i></a>
                     </li>
                 </ul>
             </div>
@@ -95,7 +98,7 @@ $page = getPage();
                     <img src="images/user.png" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>Janek</p>
+                    <p><?php echo $_SESSION['username']?></p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
