@@ -27,12 +27,13 @@ if ($lr) {
     if (count($errors) == 0) {
         $hashed_pw = password_hash($password, PASSWORD_DEFAULT);
         //Angegebene Daten mit Userdaten aus DB prüfen
-        $sql = "SELECT id, password FROM users WHERE name = '$user'";
+        $sql = "SELECT id, password, verified FROM users WHERE name = '$user'";
         $userResult = $conn->query($sql);
         if ($result = $userResult->fetch_assoc()) {
             if (password_verify($password, $result['password'])) {
                 $_SESSION['userid'] = $result['id'];
                 $_SESSION['username'] = $user;
+                $_SESSION['verified'] = $result['verified'];
                 header("Location: ../index.php");
             } else {
                 array_push($errors, "Das Passwort ist falsch!");
@@ -50,7 +51,7 @@ if ($lr) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Log in</title>
+    <title>Log in | Dashboard</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -67,7 +68,7 @@ if ($lr) {
     <link rel="stylesheet" href="<?php if ($f) echo "../" ?>adminlte/plugins/iCheck/square/blue.css">
 
     <!-- Eigenes File für Fehler -->
-    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/userAuth.css">
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>

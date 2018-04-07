@@ -1,12 +1,15 @@
 <?php
 require "functions/utils.php";
 require 'entities/Page.php';
+require 'entities/User.php';
 
 //if session[user] == leer -> page = login bzw register
 session_start();
 if (!isset($_SESSION['userid'])) {
     header("Location: pages/login.php");
-
+}
+if ($_SESSION['verified'] == "0") {
+    header("Location: pages/unverified.php");
 }
 $page = getPage();
 ?>
@@ -128,13 +131,6 @@ $page = getPage();
                     </a>
                 </li>
 
-                <li>
-                    <a href="index.php?page=test">
-                        <i class="fa fa-cog"></i>
-                        <span>Test</span>
-                    </a>
-                </li>
-
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-car"></i> <span>Fahrten</span>
@@ -179,6 +175,20 @@ $page = getPage();
                     <ul class="treeview-menu">
                         <li><a target="_blank" href="https://janek7.github.io/Minesweeper/index.html"><i
                                         class="fa fa-bomb"></i>Minesweeper</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-server"></i> <span>Administration</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="index.php?page=userManagement"><i class="fa fa-users"></i>Nutzer Verwaltung</a>
                         </li>
                     </ul>
                 </li>

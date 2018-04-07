@@ -6,7 +6,11 @@
  * Time: 22:07
  */
 
-require '../config.php';
+if (file_exists("index.php")) {
+    require 'config.php';
+} else {
+    require '../config.php';
+}
 global $configuration;
 
 $conn = MySQLi_connect(

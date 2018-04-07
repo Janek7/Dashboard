@@ -9,7 +9,8 @@
 $pages = [
     'main' => new Page("Startseite", "", "Willkommen im Dashboard", "main"),
     'error' => new Page("Error", "", "Seite nicht gefunden :/", "error"),
-    'test' => new Page("Test", "", "Nur zum Testen", "test")
+    'test' => new Page("Test", "", "Nur zum Testen", "test"),
+    'userManagement' => new Page("Nutzer", "", "Verwaltung der Nutzer", "userManagement")
 ];
 
 class Page {

@@ -17,8 +17,6 @@ function getPage() {
         $path = "pages/" . $pagename . ".php";
         if (!file_exists($path)) {
             $pagename = "error";
-        } else {
-            $pagename = "error";
         }
         return $pages[$pagename];
     } else {
