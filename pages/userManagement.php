@@ -35,6 +35,7 @@ global $users;
                             <td><?php echo $user->getRegisterDate() ?></td>
                             <?php
                             echo "<td><a href='#verifyModal'><span id='" . $user->getVerifiedLabelID() . "' ";
+                            echo "data-userid='" . $user->getId() . "' ";
                             echo "data-user='" . $user->getName() . "' ";
                             echo "data-verified='" . $user->getVerified() . "' ";
                             if ($user->getVerified() == 1) {
@@ -62,7 +63,6 @@ global $users;
         <!-- /.box -->
     </div>
 </div>
-<input type="checkbox" name="fe" id="fesfc">
 
 <!-- Verify Modal -->
 <div id="verifyModal" class="model-dialog">
@@ -74,12 +74,12 @@ global $users;
             <h4 id="verifyModalTitle" class="modal-title">Verify Infos zu Nutzer</h4>
         </div>
         <div class="modal-body">
-            <form action="functions/verify.php" class="form-horizontal" method="post">
+            <div class="form-horizontal">
                 <fieldset>
                     <div class="form-group">
                         <label for="verifyModalCheckBox" class="col-sm-4 control-label">Verifiziert</label>
                         <div class="col-sm-8">
-                            <input id="verifyModalCheckBox" name="verifyCheck" type="checkbox"/>
+                            <input id="verifyModalCheckBox" name="verifyCheck" type="checkbox" checked="checked"/>
                         </div>
                     </div>
                     <div class="form-group" id="verifierDiv">
@@ -96,8 +96,8 @@ global $users;
                     </div>
                 </fieldset>
                 <br>
-                <button class="form-control btn btn-primary" name="NoteAddButton">Schließen</button>
-            </form>
+                <button id="closeVerifyModalButton" class="form-control btn btn-primary" name="NoteAddButton">Schließen</button>
+            </div>
         </div>
     </div>
 </div>
