@@ -1,0 +1,1 @@
+<img src="images/noperms.jpg" alt="No Permissions Image" height="384" width="650"/>

@@ -11,7 +11,9 @@ if (!isset($_SESSION['userid'])) {
 if ($_SESSION['verified'] == "0") {
     header("Location: pages/unverified.php");
 }
-$page = getPage();
+
+$user = getUser();
+$page = getPage($user);
 logLastActivity($page);
 ?>
 
@@ -56,9 +58,9 @@ logLastActivity($page);
         <!-- Logo -->
         <a href="index.php?page=main" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>D</span>
+            <span class="logo-mini"><b>D</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg">Dashboard</span>
+            <span class="logo-lg"><b>Dashboard</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -75,13 +77,13 @@ logLastActivity($page);
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs"><?php echo $_SESSION['username']?></span>
+                            <span class="hidden-xs"><b><?php echo $user->getName()?></b></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
                                 <img src="adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                <p>Janek - Developer</p>
+                                <p><?php echo $user->getName()?> - Developer</p>
                             </li>
                             <!-- Menu Body -->
                         </ul>
@@ -181,6 +183,7 @@ logLastActivity($page);
                     </ul>
                 </li>
 
+                <?php if($user->hasPerm("administration.view")) : ?>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-server"></i> <span>Administration</span>
@@ -194,6 +197,7 @@ logLastActivity($page);
                         </li>
                     </ul>
                 </li>
+                <?php endif; ?>
 
                 <li class="treeview">
                     <a href="#">
@@ -215,7 +219,7 @@ logLastActivity($page);
                 ?>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="index.php"><i class="fa fa-dashboard"></i>Home</a></li>
                 <li class="active"><?php echo $page->getNavText()?></li>
             </ol>
         </section>

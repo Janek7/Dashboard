@@ -7,12 +7,17 @@
  */
 
 $pages = [
-    'main' => new Page("Startseite", "Willkommen im Dashboard", "main", "", ""),
-    'error' => new Page("Error", "Seite nicht gefunden :/", "error", "", ""),
-    'test' => new Page("Test", "Nur zum Testen", "test", "", ""),
+    'main' => new Page("Startseite", "Willkommen im Dashboard", "main",
+        "", "", ""),
+    'error' => new Page("Error", "Seite nicht gefunden :/", "error",
+        "", "", ""),
+    'test' => new Page("Test", "Nur zum Testen", "test", "",
+        "", ""),
     'userManagement' => new Page("Nutzer", "Verwaltung der Nutzer", "userManagement",
-        "<link rel=\"stylesheet\" href=\"css/userManagement.css\">",
-        "<script src=\"js/userManagementPage.js\"></script>")
+        "administration.view", "<link rel=\"stylesheet\" href=\"css/userManagement.css\">",
+        "<script src=\"js/userManagementPage.js\"></script>"),
+    'noperms' => new Page("Error", "Keine Berechtigungen :/", "noperms",
+        "", "", "")
 ];
 
 class Page {
@@ -20,13 +25,15 @@ class Page {
     private $name;
     private $headerSmall;
     private $fileName;
+    private $viewPerm;
     private $extraCSSSheets;
     private $extraJSScripts;
 
-    public function __construct($name, $headerSmall, $fileName, $extraCSSSheets, $extraJSScripts) {
+    public function __construct($name, $headerSmall, $fileName, $viewPerm, $extraCSSSheets, $extraJSScripts) {
         $this->name = $name;
         $this->headerSmall = $headerSmall;
         $this->fileName = $fileName;
+        $this->viewPerm = $viewPerm;
         $this->extraCSSSheets = $extraCSSSheets;
         $this->extraJSScripts = $extraJSScripts;
     }
@@ -37,6 +44,10 @@ class Page {
 
     public function getHeader() {
         return $this->name . "<small>" . $this->headerSmall . "</small>";
+    }
+
+    public function getViewPerm() {
+        return $this->viewPerm;
     }
 
     public function getExtraCSSSheets() {

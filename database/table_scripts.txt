@@ -12,3 +12,36 @@ CREATE TABLE users
     last_activity TIMESTAMP
 );
 
+CREATE TABLE roles
+(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE perms
+(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    `desc` VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE perm_role_connections
+(
+    perm_id INT REFERENCES perms(id) ON DELETE CASCADE,
+  role_id INT REFERENCES roles(id) ON DELETE CASCADE,
+  PRIMARY KEY (perm_id, role_id)
+);
+
+CREATE TABLE user_perms
+(
+    perm_id INT REFERENCES perms(id) ON DELETE CASCADE,
+  user_id INT REFERENCES users(id) ON DELETE CASCADE,
+  PRIMARY KEY (perm_id, user_id)
+);
+
+CREATE TABLE user_roles
+(
+    role_id INT REFERENCES roles(id) ON DELETE CASCADE,
+  user_id INT REFERENCES users(id) ON DELETE CASCADE
+
+);
+

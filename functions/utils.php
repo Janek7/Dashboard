@@ -11,9 +11,8 @@
 require 'database.php';
 global $conn;
 
-function getPage() {
+function getPage($user) {
     //index.php?page=example
-
     global $pages;
     if (isset($_GET['page'])) {
         $pagename = $_GET['page'];
@@ -21,9 +20,23 @@ function getPage() {
         if (!file_exists($path)) {
             $pagename = "error";
         }
-        return $pages[$pagename];
+        $page = $pages[$pagename];
+        if ($user->hasPerm($page->getViewPerm())) {
+            return $pages[$pagename];
+        } else {
+            return $pages['noperms'];
+        }
     } else {
         return $pages['main'];
+    }
+}
+
+function getUser() {
+    global $users;
+    foreach ($users as $user) {
+        if ($user->getId() == $_SESSION['userid']) {
+            return $user;
+        }
     }
 }
 

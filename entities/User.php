@@ -17,6 +17,15 @@ while ($row = $userlResult->fetch_assoc()) {
     array_push($users, new User($row));
 }
 
+foreach ($users as $user) {
+    $userid = $user->getId();
+    $getPermsString = "SELECT p.`desc` FROM user_perms up JOIN perms p ON up.perm_id = p.id WHERE up.user_id = '$userid'";
+    $permResult = $conn->query($getPermsString);
+    while ($row = $permResult->fetch_assoc()) {
+        $user->addPerm($row['desc']);
+    }
+}
+
 class User {
 
     private $id;
@@ -28,6 +37,7 @@ class User {
     private $verifyDate;
     private $lastActivity;
     private $lastPage;
+    private $perms;
 
     function __construct($row) {
         $this->id = $row['id'];
@@ -42,6 +52,7 @@ class User {
         $this->lastActivity = new DateTime();
         $this->lastActivity->setTimestamp(strtotime($row['last_activity']));
         $this->lastPage = $row['last_page'];
+        $this->perms = [];
     }
     
     function getId() {
@@ -78,6 +89,19 @@ class User {
 
     public function getLastPage() {
         return $this->lastPage;
+    }
+
+
+    public function getPerms() {
+        return $this->perms;
+    }
+
+    public function addPerm($perm) {
+        array_push($this->perms, $perm);
+    }
+
+    public function hasPerm($perm) {
+        return in_array($perm, $this->perms);
     }
 
 

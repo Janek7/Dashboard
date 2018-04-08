@@ -4,7 +4,6 @@ $(".verifiedLabel").click(function () {
     var _this = this;
     this.setAttribute("data-selected", "true");
     $("#verifyModalTitle").html("Verify Infos zu " + _this.dataset['user']);
-    //document.getElementById("verifyModalTitle").innerHTML = "Verify Infos zu " + this.dataset['user'];
     document.getElementById("verifyModalCheckBox").checked = this.dataset['verified'] == "1";
     if (this.dataset['verified'] == "1") {
         $("#verifier").html(this.dataset['verifier']);
@@ -17,7 +16,7 @@ $(".verifiedLabel").click(function () {
 });
 
 $("#closeVerifyModal").click(function (ev) {
-    $("#verifyModal").fadeOut();
+    closeVerifyModal();
     getSelectedLabel().setAttribute("data-selected", "false");
 });
 
@@ -28,16 +27,20 @@ $("#closeVerifyModalButton").click(function (ev) {
     var phpcall = "functions/verify.php?verify=" + (verify ? "1" : "0") + "&userid=" + label.dataset['userid'];
     $.get(phpcall, function (data, status) {
         var json = JSON.parse(data);
-        alert(json.length);
         for (var jsonKey in json) {
             label.setAttribute(jsonKey, json[jsonKey]);
         }
         label.setAttribute("class", "label verifiedLabel " + (verify ? "label-success" : "label-danger"));
         label.innerHTML = verify ? "Verfiziert" : "Unverfiziert";
-        $("#verifyModal").fadeOut();
+        closeVerifyModal();
     });
 
 });
+
+function closeVerifyModal() {
+    window.location.href = '#';
+    $("#verifyModal").fadeOut();
+}
 
 function getSelectedLabel() {
     const verifiedLabels = document.getElementsByClassName("verifiedLabel");

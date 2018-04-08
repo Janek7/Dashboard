@@ -25,6 +25,7 @@ global $users;
                         <th>Email</th>
                         <th>Register Datum</th>
                         <th>Status</th>
+                        <th>Permissions</th>
                         <th>letzte Aktivität</th>
                     </tr>
                     <?php foreach ($users as $user) : ?>
@@ -50,6 +51,7 @@ global $users;
                             }
                             echo "</span></a></td>";
                             ?>
+                            <td><a href=""><span class="label label-primary">Permissions</span></a></td>
                             <td>Betrachtete am <b><?php echo $user->getLastActivity() ?></b>
                                 die Seite <b><?php echo $user->getLastPage() ?></b></td>
                             <!-- //last activity-->
@@ -96,7 +98,7 @@ global $users;
                     </div>
                 </fieldset>
                 <br>
-                <button id="closeVerifyModalButton" class="form-control btn btn-primary" name="NoteAddButton">Schließen</button>
+                <button id="closeVerifyModalButton" class="form-control btn btn-primary" name="NoteAddButton">Speichern</button>
             </div>
         </div>
     </div>
