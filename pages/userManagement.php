@@ -34,15 +34,23 @@ global $users;
                             <td><?php echo $user->getEmail() ?></td>
                             <td><?php echo $user->getRegisterDate() ?></td>
                             <?php
-                            echo "<td><a href><span class = ";
+                            echo "<td><a href='#verifyModal'><span id='" . $user->getVerifiedLabelID() . "' ";
+                            echo "data-user='" . $user->getName() . "' ";
+                            echo "data-verified='" . $user->getVerified() . "' ";
+                            if ($user->getVerified() == 1) {
+                                echo "data-verifydate='" . $user->getVerifyDate() . "' ";
+                                echo "data-verifier='" . $user->getVerifier() . "' ";
+                            }
+                            echo "class = \"label verifiedLabel ";
                             if ($user->getVerified() == "1") {
-                                echo "\"label label-success verifiedLabel\">Verfiziert";
+                                echo "label-success\">Verfiziert";
                             } else {
-                                echo "\"label label-danger verifiedLabel\">Unverfiziert";
+                                echo "label-danger\">Unverfiziert";
                             }
                             echo "</span></a></td>";
                             ?>
-                            <td>Betrachtete am <?php echo $user->getLastActivity()?> die Seite <?php echo $user->getLastPage()?></td>
+                            <td>Betrachtete am <b><?php echo $user->getLastActivity() ?></b>
+                                die Seite <b><?php echo $user->getLastPage() ?></b></td>
                             <!-- //last activity-->
                         </tr>
                     <?php endforeach ?>
@@ -52,5 +60,44 @@ global $users;
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
+    </div>
+</div>
+<input type="checkbox" name="fe" id="fesfc">
+
+<!-- Verify Modal -->
+<div id="verifyModal" class="model-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button id="closeVerifyModal" type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h4 id="verifyModalTitle" class="modal-title">Verify Infos zu Nutzer</h4>
+        </div>
+        <div class="modal-body">
+            <form action="functions/verify.php" class="form-horizontal" method="post">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="verifyModalCheckBox" class="col-sm-4 control-label">Verifiziert</label>
+                        <div class="col-sm-8">
+                            <input id="verifyModalCheckBox" name="verifyCheck" type="checkbox"/>
+                        </div>
+                    </div>
+                    <div class="form-group" id="verifierDiv">
+                        <label for="verifier" class="col-sm-4 control-label">Verifiziert von:</label>
+                        <div class="col-sm-8">
+                            <p class="form-control" id="verifier">x</p>
+                        </div>
+                    </div>
+                    <div class="form-group" id="verifyDateDiv">
+                        <label for="verifyDate" class="col-sm-4 control-label">Verifiziert seit:</label>
+                        <div class="col-sm-8">
+                            <p class="form-control" id="verifyDate">x</p>
+                        </div>
+                    </div>
+                </fieldset>
+                <br>
+                <button class="form-control btn btn-primary" name="NoteAddButton">Schließen</button>
+            </form>
+        </div>
     </div>
 </div>

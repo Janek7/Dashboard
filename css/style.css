@@ -1,3 +1,14 @@
 body {
     font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
 }
+
+.model-dialog {
+    position: absolute;
+    top: 5%;
+    left: 40%;
+    width: 30%;
+    z-index: 9999;
+    display: none;
+    border-style: solid;
+    border-color: lightgrey;
+}
