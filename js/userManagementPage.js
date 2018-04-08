@@ -1,27 +1,23 @@
 'use strict';
 
 const verifiedLabels = document.getElementsByClassName("verifiedLabel");
-for (var index in verifiedLabels) {
-    if (index == "length") break;
-    const label = verifiedLabels[index];
-    label.addEventListener("click", function(ev) {
-        label.setAttribute("data-selected", "true");
+$(".verifiedLabel").click(function () {
+    this.setAttribute("data-selected", "true");
 
-        document.getElementById("verifyModalTitle").innerHTML = "Verify Infos zu " + label.dataset['user'];
-        document.getElementById("verifyModalCheckBox").checked = label.dataset['verified'] == "1";
-        if (label.dataset['verified'] == "1") {
-            document.getElementById("verifier").innerHTML = label.dataset['verifier'];
-            document.getElementById("verifyDate").innerHTML = label.dataset['verifydate'];
-        } else {
-            document.getElementById("verifierDiv").style.display = "None";
-            document.getElementById("verifyDateDiv").style.display = "None";
-        }
-        document.getElementById("verifyModal").style.display = "block";
-    });
-}
+    document.getElementById("verifyModalTitle").innerHTML = "Verify Infos zu " + this.dataset['user'];
+    document.getElementById("verifyModalCheckBox").checked = this.dataset['verified'] == "1";
+    if (this.dataset['verified'] == "1") {
+        document.getElementById("verifier").innerHTML = this.dataset['verifier'];
+        document.getElementById("verifyDate").innerHTML = this.dataset['verifydate'];
+    } else {
+        document.getElementById("verifierDiv").style.display = "None";
+        document.getElementById("verifyDateDiv").style.display = "None";
+    }
+    document.getElementById("verifyModal").style.display = "block";
+});
 
-document.getElementById("closeVerifyModal").addEventListener("click", function (ev) {
-    document.getElementById("verifyModal").style.display = "None";
+$("#closeVerifyModal").click(function (ev) {
+    $("#verifyModal").fadeOut();
     getSelectedLabel().setAttribute("data-selected", "false");
 });
 
@@ -36,11 +32,10 @@ function getSelectedLabel() {
     }
 }
 
-
-document.getElementById("closeVerifyModalButton").addEventListener("click", function (ev) {
+$("#closeVerifyModalButton").click(function (ev) {
 
     var updatePage = function modifyPage(req, label, verify) {
-        document.getElementById("verifyModal").style.display = "None";
+        $("#verifyModal").fadeOut();
         /*var response = eval('(' + req.responseText+ ')');
         alert(response);*/
         //TODO: Label data attribute mit Infos aus JSON Rückgabe ändern

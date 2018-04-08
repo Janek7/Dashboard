@@ -239,6 +239,8 @@ logLastActivity($page);
     </footer>
     <!-- ./wrapper -->
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <!-- Eigene JS Scripts -->
     <script src="js/indexPage.js"></script>
     <?php echo $page->getExtraJSScripts() ?>
