@@ -105,7 +105,6 @@ class User {
     }
 
 
-
     public function getVerifiedLabelID() {
         return "verifiedLabel" . $this->id;
     }

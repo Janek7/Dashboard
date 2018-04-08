@@ -3,3 +3,7 @@
     margin-right: auto;
     background-color: red;
 }
+
+.alert {
+    display: none;
+}
