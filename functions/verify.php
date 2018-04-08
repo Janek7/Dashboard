@@ -12,7 +12,7 @@ session_start();
 
 if (isset($_GET['verify'])) {
     $sql = "UPDATE users  SET verified = ";
-    if ($_GET['verify'] == "true") {
+    if ($_GET['verify'] == "1") {
         $sql .= "'1', verified_by = '" . $_SESSION['userid'] . "', verify_date = CURRENT_TIMESTAMP()";
     } else {
         $sql .= "'0', verified_by = null, verify_date = null";
@@ -23,8 +23,8 @@ if (isset($_GET['verify'])) {
 
     //Rückgabe in JSON
     $json = '{"data-verified": "' . $_GET['verify'] . '"';
-    if ($_GET['verify'] == "true") {
-        $json .= ', "data-verifier": "' . $_SESSION['userid'] . '", "data-verifyDate": "' . date('Y-m-d H:i:s') . '"';
+    if ($_GET['verify'] == "1") {
+        $json .= ', "data-verifier": "' . $_SESSION['username'] . '", "data-verifyDate": "' . date('Y-m-d H:i:s') . '"';
     }
     echo $json . "}";
 } else {
