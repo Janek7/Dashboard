@@ -2,6 +2,7 @@
 require "functions/utils.php";
 require 'entities/Page.php';
 require 'entities/User.php';
+require 'entities/Role.php';
 
 //if session[user] == leer -> page = login bzw register
 session_start();

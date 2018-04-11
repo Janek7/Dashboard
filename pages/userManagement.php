@@ -6,7 +6,9 @@
  * Time: 14:30
  */
 
+global $conn;
 global $users;
+global $roles;
 ?>
 
 <div class="row">
@@ -39,6 +41,7 @@ global $users;
                             <td><?php echo $user->getEmail() ?></td>
                             <td><?php echo $user->getRegisterDate() ?></td>
                             <?php
+                            //Verify Label
                             echo "<td><a href='#verifyModal'><span id='" . $user->getVerifiedLabelID() . "' ";
                             echo "data-userid='" . $user->getId() . "' ";
                             echo "data-user='" . $user->getName() . "' ";
@@ -54,8 +57,15 @@ global $users;
                                 echo "label-danger\">Unverfiziert";
                             }
                             echo "</span></a></td>";
+                            //Perm Label
+                            echo "<td><a href=\"#permModal\"><span class=\"label label-primary permLabel\" ";
+                            echo "data-user='" . $user->getName() . "' ";
+                            foreach ($roles as $role) {
+                                $roleid = $role->getId();
+                                echo " data-role$roleid=".($user->hasRole($role->getId()) ? "1" : "0");
+                            }
+                            echo ">Permissions</span></a></td>";
                             ?>
-                            <td><a href="#permModal"><span class="label label-primary permLabel">Permissions</span></a></td>
                             <td>Betrachtete am <b><?php echo $user->getLastActivity() ?></b>
                                 die Seite <b><?php echo $user->getLastPage() ?></b></td>
                             <!-- //last activity-->
@@ -102,7 +112,7 @@ global $users;
                     </div>
                 </fieldset>
                 <br>
-                <button id="closeVerifyModalButton" class="form-control btn btn-primary">Speichern</button>
+                <button id="saveVerifyModalButton" class="form-control btn btn-primary">Speichern</button>
             </div>
         </div>
     </div>
@@ -119,7 +129,6 @@ global $users;
         </div>
         <div class="modal-body">
             <div class="form-horizontal">
-
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#groupTab" data-toggle="tab" aria-expanded="true">Gruppen</a></li>
@@ -139,7 +148,10 @@ global $users;
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="groupTab">
-                            <p>Gruppen</p>
+                            <?php foreach ($roles as $role) : ?>
+                                <div class="roleLayout"><input id="role<?php echo $role->getId();?>Checkbox"
+                                                               type="checkbox"/><?php echo $role->getName();?></div>"
+                            <?php endforeach; ?>
                         </div>
                         <div class="tab-pane" id="permTab">
                             <p>Einzelne Rechte</p>
@@ -148,7 +160,7 @@ global $users;
                     <!-- /.tab-content -->
                 </div>
 
-                <button id="closePermModalButton" class="form-control btn btn-primary">Speichern</button>
+                <button id="savePermModalButton" class="form-control btn btn-primary">Speichern</button>
             </div>
         </div>
     </div>

@@ -7,3 +7,7 @@
 .alert {
     display: none;
 }
+
+.roleLayout input {
+    margin-right: 5%;
+}

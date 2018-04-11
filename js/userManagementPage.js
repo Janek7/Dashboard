@@ -20,7 +20,7 @@ $("#closeVerifyModal").click(function () {
     closeVerifyModal();
 });
 
-$("#closeVerifyModalButton").click(function () {
+$("#saveVerifyModalButton").click(function () {
 
     var label = getSelectedVerifyLabel();
     var verify = document.getElementById("verifyModalCheckBox").checked;
@@ -61,7 +61,15 @@ function getSelectedVerifyLabel() {
 
 //PERMISSION MODAL
 $(".permLabel").click(function () {
-    $("#permModalTitle").html("Permission Infos zu " + /*_this.dataset['user']*/ " hier was einfügen");
+    this.setAttribute("data-selected", "true");
+    $("#permModalTitle").html("Permission Infos zu " + this.dataset['user']);
+    const amountOfRoles = 5;
+    for (var i = 1; i < amountOfRoles; i++) {
+        var datasetEntry = "role" + i.toString();
+        var checkBox = "#role" + i.toString() + "Checkbox";
+        if (this.dataset[datasetEntry] == "1") $(checkBox).attr("checked", "checked");
+    }
+
     $("#permModal").css("display", "block");
 });
 
@@ -73,7 +81,45 @@ $("#closePermModalButton").click(function () {
     closePermModal();
 });
 
+$("#savePermModalButton").click(function () {
+
+    var label = getSelectedPermLabel();
+    const amountOfRoles = 5;
+    var phpcall = "functions/updateRoles.php?";
+    for (var i = 1; i < amountOfRoles; i++) {
+        var roleString = "role" + i.toString();
+        var datasetEntry = roleString;
+        var checkBox = "#" + roleString + "Checkbox";
+        alert(document.getElementById(checkBox).checked);
+        if (this.dataset[datasetEntry] == "1" && document.getElementById(checkBox).checked == "false"){
+            phpcall += roleString + "=remove&";
+            label.setAttribute("data-" + roleString, "0");
+        } else if (this.dataset[datasetEntry] == "0" && document.getElementById(checkBox).checked == "true"){
+            phpcall += "role" + i.toString() + "=add&";
+            label.setAttribute("data-" + roleString, "1");
+        }
+    }
+    alert(phpcall);
+    $.get(phpcall, function (data, status) {
+        $("#successAlertText").html("Die Permission von " + label.dataset['user'] + " wurden erfolgreich bearbeitet");
+        $('#successAlertBox').css("display", "Block");
+    });
+
+});
+
 function closePermModal() {
     window.location.href = '#';
     $("#permModal").fadeOut();
+}
+
+function getSelectedPermLabel() {
+    const permLabels = document.getElementsByClassName("permLabel");
+    for (var labelIndex in permLabels) {
+        if (labelIndex == "length") {
+            break;
+        }
+        if (permLabels[labelIndex].dataset['selected'] == "true") {
+            return permLabels[labelIndex];
+        }
+    }
 }

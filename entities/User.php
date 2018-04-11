@@ -26,6 +26,15 @@ foreach ($users as $user) {
     }
 }
 
+foreach ($users as $user) {
+    $userid = $user->getId();
+    $getRoles = "SELECT * FROM user_roles WHERE user_id = '$userid'";
+    $roleResult = $conn->query($getRoles);
+    while ($row = $roleResult->fetch_assoc()) {
+        $user->addRole($row['role_id']);
+    }
+}
+
 class User {
 
     private $id;
@@ -38,6 +47,7 @@ class User {
     private $lastActivity;
     private $lastPage;
     private $perms;
+    private $roles;
 
     function __construct($row) {
         $this->id = $row['id'];
@@ -53,6 +63,7 @@ class User {
         $this->lastActivity->setTimestamp(strtotime($row['last_activity']));
         $this->lastPage = $row['last_page'];
         $this->perms = [];
+        $this->roles = [];
     }
     
     function getId() {
@@ -102,6 +113,19 @@ class User {
 
     public function hasPerm($perm) {
         return in_array($perm, $this->perms);
+    }
+
+
+    public function getRoles() {
+        return $this->roles;
+    }
+
+    public function addRole($role) {
+        array_push($this->roles, $role);
+    }
+
+    public function hasRole($role) {
+        return in_array($role, $this->roles);
     }
 
 
