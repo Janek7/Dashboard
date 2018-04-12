@@ -60,6 +60,7 @@ global $roles;
                             //Perm Label
                             echo "<td><a href=\"#permModal\"><span class=\"label label-primary permLabel\" ";
                             echo "data-user='" . $user->getName() . "' ";
+                            echo "data-userid='" . $user->getId() . "' ";
                             foreach ($roles as $role) {
                                 $roleid = $role->getId();
                                 echo " data-role$roleid=".($user->hasRole($role->getId()) ? "1" : "0");
@@ -133,28 +134,16 @@ global $roles;
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#groupTab" data-toggle="tab" aria-expanded="true">Gruppen</a></li>
                         <li class=""><a href="#permTab" data-toggle="tab" aria-expanded="false">Permissions</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                                Dropdown <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                                <li role="presentation" class="divider"></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-                            </ul>
-                        </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="groupTab">
                             <?php foreach ($roles as $role) : ?>
                                 <div class="roleLayout"><input id="role<?php echo $role->getId();?>Checkbox"
-                                                               type="checkbox"/><?php echo $role->getName();?></div>"
+                                                               type="checkbox"/><?php echo $role->getName();?></div>
                             <?php endforeach; ?>
                         </div>
                         <div class="tab-pane" id="permTab">
-                            <p>Einzelne Rechte</p>
+                            <p>soon oder so</p>
                         </div>
                     </div>
                     <!-- /.tab-content -->
