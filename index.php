@@ -115,6 +115,7 @@ logLastActivity($page);
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">Menü</li>
 
+                <?php if($user->hasPerm("2")) : ?>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-code"></i> <span>Proggen</span>
@@ -123,11 +124,12 @@ logLastActivity($page);
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href=""><i class="fa fa-table"></i>Übersicht</a></li>
+                        <li><a href="index.php?page=codingProjects"><i class="fa fa-table"></i>Projekte</a></li>
                         <li><a target="_blank" href="https://github.com/Janek7"><i class="fa fa-code-fork"></i>Git</a>
                         </li>
                     </ul>
                 </li>
+                <?php endif; ?>
 
                 <li>
                     <a href="">

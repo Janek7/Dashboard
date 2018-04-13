@@ -21,7 +21,8 @@ function getPage($user) {
             $pagename = "error";
         }
         $page = $pages[$pagename];
-        if ($user->hasPerm($page->getViewPerm())) {
+        $viewPerm = $page->getViewPerm();
+        if ($user->hasPerm($viewPerm) || $viewPerm == null) {
             return $pages[$pagename];
         } else {
             return $pages['noperms'];

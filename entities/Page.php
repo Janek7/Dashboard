@@ -8,16 +8,18 @@
 
 $pages = [
     'main' => new Page("Startseite", "Willkommen im Dashboard", "main",
-        "", "", ""),
+        null, "", ""),
     'error' => new Page("Error", "Seite nicht gefunden :/", "error",
-        "", "", ""),
-    'test' => new Page("Test", "Nur zum Testen", "test", "",
+        null, "", ""),
+    'test' => new Page("Test", "Nur zum Testen", "test", null,
         "", ""),
     'userManagement' => new Page("Nutzer", "Verwaltung der Nutzer", "userManagement",
         "4", "<link rel=\"stylesheet\" href=\"css/userManagement.css\">",
         "<script src=\"js/userManagementPage.js\"></script>"),
     'noperms' => new Page("Error", "Keine Berechtigungen :/", "noperms",
-        "", "", "")
+        null, "", ""),
+    'codingProjects' => new Page("Projekte", "Übersicht zu allen Projekten", "codingProjects",
+        "2", "", "")
 ];
 
 class Page {

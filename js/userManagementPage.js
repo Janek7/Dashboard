@@ -67,14 +67,9 @@ $(".permLabel").click(function () {
     for (var i = 1; i <= amountOfRoles; i++) {
         var datasetEntry = "role" + i.toString();
         var checkBox = "#role" + i.toString() + "Checkbox";
-        alert(this.dataset[datasetEntry]);
         if (this.dataset[datasetEntry] == "1") {
-            //TODO: Neu Setzen
-            alert("yo");
+            //TODO: Neu Setzen geht, wird aber nicht angezeigt
             $(checkBox).attr("checked", "checked");
-        } else {
-            //$(checkBox).prop("checked", false);
-            //TODO: entweder das rein nehmen oder unten alle unchecken bei close
         }
     }
 
