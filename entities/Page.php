@@ -14,7 +14,7 @@ $pages = [
     'test' => new Page("Test", "Nur zum Testen", "test", "",
         "", ""),
     'userManagement' => new Page("Nutzer", "Verwaltung der Nutzer", "userManagement",
-        "administration.view", "<link rel=\"stylesheet\" href=\"css/userManagement.css\">",
+        "4", "<link rel=\"stylesheet\" href=\"css/userManagement.css\">",
         "<script src=\"js/userManagementPage.js\"></script>"),
     'noperms' => new Page("Error", "Keine Berechtigungen :/", "noperms",
         "", "", "")

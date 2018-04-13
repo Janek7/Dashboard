@@ -19,10 +19,10 @@ while ($row = $userlResult->fetch_assoc()) {
 
 foreach ($users as $user) {
     $userid = $user->getId();
-    $getPermsString = "SELECT p.`desc` FROM user_perms up JOIN perms p ON up.perm_id = p.id WHERE up.user_id = '$userid'";
+    $getPermsString = "SELECT p.id FROM user_perms up JOIN perms p ON up.perm_id = p.id WHERE up.user_id = '$userid'";
     $permResult = $conn->query($getPermsString);
     while ($row = $permResult->fetch_assoc()) {
-        $user->addPerm($row['desc']);
+        $user->addPerm($row['id']);
     }
 }
 

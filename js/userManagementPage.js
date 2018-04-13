@@ -67,10 +67,14 @@ $(".permLabel").click(function () {
     for (var i = 1; i <= amountOfRoles; i++) {
         var datasetEntry = "role" + i.toString();
         var checkBox = "#role" + i.toString() + "Checkbox";
+        alert(this.dataset[datasetEntry]);
         if (this.dataset[datasetEntry] == "1") {
+            //TODO: Neu Setzen
+            alert("yo");
             $(checkBox).attr("checked", "checked");
         } else {
-            $(checkBox).removeAttr("checked");
+            //$(checkBox).prop("checked", false);
+            //TODO: entweder das rein nehmen oder unten alle unchecken bei close
         }
     }
 
@@ -89,16 +93,17 @@ $("#savePermModalButton").click(function () {
     for (var i = 1; i <= amountOfRoles; i++) {
         var roleString = "role" + i.toString();
         var datasetEntry = roleString;
-        var checkBox = roleString + "Checkbox";
-        if (label.dataset[datasetEntry] == "1" && document.getElementById(checkBox).checked == false){
+        var checkBoxString = roleString + "Checkbox";
+        var checkBox = document.getElementById(checkBoxString);
+        if (label.dataset[datasetEntry] == "1" && checkBox.checked == false){
             phpcall += i.toString() + "=remove&";
             label.setAttribute("data-" + roleString, "0");
-        } else if (label.dataset[datasetEntry] == "0" && document.getElementById(checkBox).checked == true){
+        } else if (label.dataset[datasetEntry] == "0" && checkBox.checked == true){
             phpcall += i.toString() + "=add&";
             label.setAttribute("data-" + roleString, "1");
         }
+        //checkBox.checked = false;
     }
-    alert(phpcall);
     if (phpcall != "functions/updateRoles.php?") {
         $.get(phpcall, function (data, status) {
             $("#successAlertText").html("Die Permissions von " + label.dataset['user'] + " wurden erfolgreich bearbeitet");
@@ -106,6 +111,7 @@ $("#savePermModalButton").click(function () {
         });
     }
     closePermModal();
+    $(".roleCheckBox").prop("checked", false)
 
 });
 

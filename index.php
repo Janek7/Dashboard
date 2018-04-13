@@ -184,7 +184,7 @@ logLastActivity($page);
                     </ul>
                 </li>
 
-                <?php if($user->hasPerm("administration.view")) : ?>
+                <?php if($user->hasPerm("4")) : ?>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-server"></i> <span>Administration</span>

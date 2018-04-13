@@ -63,13 +63,16 @@ global $roles;
                             echo "data-userid='" . $user->getId() . "' ";
                             foreach ($roles as $role) {
                                 $roleid = $role->getId();
-                                echo " data-role$roleid=".($user->hasRole($role->getId()) ? "1" : "0");
+                                echo " data-role$roleid=" . ($user->hasRole($role->getId()) ? "1" : "0");
                             }
                             echo ">Permissions</span></a></td>";
                             ?>
-                            <td>Betrachtete am <b><?php echo $user->getLastActivity() ?></b>
-                                die Seite <b><?php echo $user->getLastPage() ?></b></td>
-                            <!-- //last activity-->
+                            <?php if ($user->getLastPage() != ""): ?>
+                                <td>Betrachtete am <b><?php echo $user->getLastActivity() ?></b>
+                                    die Seite <b><?php echo $user->getLastPage() ?></b></td>
+                            <?php else: ?>
+                                <td>-</td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach ?>
                     </tbody>
@@ -138,8 +141,8 @@ global $roles;
                     <div class="tab-content">
                         <div class="tab-pane active" id="groupTab">
                             <?php foreach ($roles as $role) : ?>
-                                <div class="roleLayout"><input id="role<?php echo $role->getId();?>Checkbox"
-                                                               type="checkbox"/><?php echo $role->getName();?></div>
+                                <div class="roleLayout"><input id="role<?php echo $role->getId(); ?>Checkbox"
+                                                               class="roleCheckBox" type="checkbox"/><?php echo $role->getName(); ?></div>
                             <?php endforeach; ?>
                         </div>
                         <div class="tab-pane" id="permTab">
