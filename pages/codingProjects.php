@@ -23,237 +23,157 @@ $labelColors = [
 ];
 
 ?>
+<div class="row">
+    <div class="col-md-3">
+        <button id="newProject" type="button" class="btn btn-block btn-primary">Neues Projekt anlegen</button>
+    </div>
+</div>
+<br/>
+<div>
+    <ul class="timeline">
 
-<ul class="timeline">
-
-    <?php while ($project = $projectsResult->fetch_assoc()):
-        $projectId = $project['id'];
-        $sqlGetProjectLanguages = "SELECT cl.name, cpl.main FROM coding_projects cp JOIN coding_project_languages cpl 
+        <?php while ($project = $projectsResult->fetch_assoc()):
+            $projectId = $project['id'];
+            $sqlGetProjectLanguages = "SELECT cl.name, cpl.main FROM coding_projects cp JOIN coding_project_languages cpl 
                           ON cp.id = cpl.project_id JOIN coding_languages cl ON cpl.language_id = cl.id WHERE project_id = '$projectId';";
-        $projectLanguageResult = $conn->query($sqlGetProjectLanguages);
-        $projectLanguages = [];
-        while ($language = $projectLanguageResult->fetch_assoc()) {
-            array_push($projectLanguages, $language);
-        }
-        $mainLanguageColor = null;
-        foreach ($projectLanguages as $language) {
-            if ($language['main'] == "1") {
-                $mainLanguageColor = $labelColors[$language['name']];
+            $projectLanguageResult = $conn->query($sqlGetProjectLanguages);
+            $projectLanguages = [];
+            while ($language = $projectLanguageResult->fetch_assoc()) {
+                array_push($projectLanguages, $language);
             }
-        }
-        $projectStartDate = new DateTime($project['start_date']);
-        $yearMonthString = date_format($projectStartDate, "y-m");
-        ?>
-        <!-- Month -->
-        <?php if (!in_array($yearMonthString, $months)): ?>
-        <li class="time-label">
+            $mainLanguageColor = null;
+            foreach ($projectLanguages as $language) {
+                if ($language['main'] == "1") {
+                    $mainLanguageColor = $labelColors[$language['name']];
+                }
+            }
+            $projectStartDate = new DateTime($project['start_date']);
+            $yearMonthString = date_format($projectStartDate, "y-m");
+            ?>
+            <!-- Month -->
+            <?php if (!in_array($yearMonthString, $months)): ?>
+            <li class="time-label">
                 <span class="bg-green">
-                    <?php echo  $projectStartDate->format("F Y");?>
+                    <?php echo $projectStartDate->format("F Y"); ?>
                 </span>
-        </li>
-        <?php
-        array_push($months, $yearMonthString);
+            </li>
+            <?php
+            array_push($months, $yearMonthString);
         endif;
-        ?>
-        <!-- Project -->
-        <li>
-            <i class="fa fa-code <?php echo $mainLanguageColor; ?>"></i>
-            <div class="timeline-item">
+            ?>
+            <!-- Project -->
+            <li>
+                <i class="fa fa-code <?php echo $mainLanguageColor; ?>"></i>
+                <div class="timeline-item">
                 <span class="time"><i class="fa fa-bitbucket"></i><a target="_blank"
                                                                      href="<?php echo $project['git_repo'] ?>">
                         <?php echo $project['git_client']; ?></a></span>
-                <h3 class="timeline-header"><a href="#"><?php echo $project['title']; ?></a></h3>
-                <div class="timeline-body">
-                    <?php
-                    $stateLabelColor = null;
-                    $state = null;
-                    if ($project['state'] == "open") {
-                        $stateLabelColor = "label-success";
-                        $state = "In Bearbeitung";
-                    } else if ($project['state'] == "closed") {
-                        $stateLabelColor = "label-danger";
-                        $state = "Fertig";
-                    }
-                    ?>
-                    <p><b>Status: </b><span class="label <?php echo $stateLabelColor; ?>"><?php echo $state; ?></span>
-                    </p>
-                    <b>Beschreibung:</b>
-                    <ul>
+                    <h3 class="timeline-header"><a href="#"><?php echo $project['title']; ?></a></h3>
+                    <div class="timeline-body">
                         <?php
-                        $sqlGetProjectDesc = "SELECT text FROM coding_project_descriptions WHERE project_id = '$projectId';";
-                        $projectDescResult = $conn->query($sqlGetProjectDesc);
-                        while ($desc = $projectDescResult->fetch_assoc()) {
-                            echo "<li>" . $desc['text'] . "</li>";
+                        $stateLabelColor = null;
+                        $state = null;
+                        if ($project['state'] == "open") {
+                            $stateLabelColor = "label-success";
+                            $state = "In Bearbeitung";
+                        } else if ($project['state'] == "closed") {
+                            $stateLabelColor = "label-danger";
+                            $state = "Fertig";
                         }
                         ?>
-                    </ul>
-                    <p>
-                        <b>Sprachen:</b>
-                        <?php
-                        foreach ($projectLanguages as $language) {
-                            echo "<span class=\"label " . $labelColors[$language['name']] . "\">" . $language['name'] . "</span>";
-                        }
-                        ?>
-                    </p>
+                        <p><b>Status: </b><span
+                                    class="label <?php echo $stateLabelColor; ?>"><?php echo $state; ?></span>
+                        </p>
+                        <b>Beschreibung:</b>
+                        <ul>
+                            <?php
+                            $sqlGetProjectDesc = "SELECT text FROM coding_project_descriptions WHERE project_id = '$projectId';";
+                            $projectDescResult = $conn->query($sqlGetProjectDesc);
+                            while ($desc = $projectDescResult->fetch_assoc()) {
+                                echo "<li>" . $desc['text'] . "</li>";
+                            }
+                            ?>
+                        </ul>
+                        <p>
+                            <b>Sprachen:</b>
+                            <?php
+                            foreach ($projectLanguages as $language) {
+                                echo "<span class=\"label " . $labelColors[$language['name']] . "\">" . $language['name'] . "</span>";
+                            }
+                            ?>
+                        </p>
+                    </div>
                 </div>
-            </div>
+            </li>
+        <?php endwhile; ?>
+        <!-- Urpsrung -->
+        <li>
+            <i class="fa fa-clock-o bg-gray"></i>
         </li>
-    <?php endwhile; ?>
-    <!-- April -->
-    <li class="time-label">
-        <span class="bg-green">
-            April 2018
-        </span>
-    </li>
+    </ul>
+</div>
 
-    <!-- UIP -->
-    <li>
-        <i class="fa fa-code bg-blue"></i>
-        <div class="timeline-item">
-            <span class="time"><i class="fa fa-bitbucket"></i><a target="_blank"
-                                                                 href="https://bitbucket.org/sprintathleten/projekt_1/src"> Bitbucket</a></span>
-            <h3 class="timeline-header"><a href="#">UIP</a></h3>
-            <div class="timeline-body">
-                <b>Beschreibung:</b>
-                <ul>
-                    <li>Laden und Aufbereitung von Datensätzen</li>
-                    <li>Implementierung der Machine Learning Methoden k nearest neighbour, support vector machine,
-                        random forest und naive bayes
-                    </li>
-                    <li>Berechnen der Features einer User Story</li>
-                    <li>Testroutinen der Machine Learning Methoden</li>
-                </ul>
-                <p><b>Sprachen:</b>
-                    <span class="label bg-blue">Python</span>
-                    <span class="label bg-orange">HTML</span>
-                </p>
-            </div>
+
+<!-- New Project Modal -->
+<div id="newProjectModal" class="model-dialog">
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <button id="closeNewProjectModal" type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h4 id="permModalTitle" class="modal-title">Neues Projekt anlegen</h4>
         </div>
-    </li>
-
-    <!-- Dashboard -->
-    <li>
-        <i class="fa fa-code bg-purple"></i>
-        <div class="timeline-item">
-            <span class="time"><i class="fa fa-github"></i><a target="_blank"
-                                                              href="https://github.com/Janek7/Dashboard"> Github</a></span>
-            <h3 class="timeline-header"><a href="#">Dashboard</a></h3>
-            <div class="timeline-body">
-                <p><b>Beschreibung:</b> Logging und Darstellung von verschiedenen Daten</p>
-                <p><b>Sprachen: </b>
-                    <span class="label bg-purple">PHP</span>
-                    <span class="label bg-yellow">JavaScript</span>
-                    <span class="label bg-orange">HTML</span>
-                    <span class="label bg-green">CSS</span></p>
-            </div>
+        <div class="modal-body">
+            <form class="form-horizontal" action="functions/insertProject.php" method="post">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">Titel</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Titel" required="required"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate" class="col-sm-2 control-label">Start Datum</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="startDate" name="startDate"  required="required"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="languages" class="col-sm-2 control-label">Sprachen</label>
+                        <div class="col-sm-10">
+                            <select id="languages" multiple="multiple" name="languages" class="form-control" required="required">
+                                <option value="java">Java</option>
+                                <option value="html">HTML</option>
+                                <option value="css">CSS</option>
+                                <option value="js">JavaScript</option>
+                                <option value="python">Python</option>
+                                <option value="php">PHP</option>
+                                <option value="groovy">Groovy</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gitclient" class="col-sm-2 control-label">Git Client</label>
+                        <div class="col-sm-10">
+                            <select id="gitclient" name="gitclient" class="form-control" required="required">
+                                <option value="github" selected="selected">Github</option>
+                                <option value="bitbucket">Bitbucket</option>
+                                <option value="gitlab">Gitlab</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gitrepo" class="col-sm-2 control-label">Repository</label>
+                        <div class="col-sm-10">
+                            <input type="url" id="gitrepo" name="gitrepo" class="form-control" required="required"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-info pull-right">Erstellen</button>
+                </div>
+            </form>
         </div>
-    </li>
-
-    <!-- März -->
-    <li class="time-label">
-        <span class="bg-green">
-            März 2018
-        </span>
-    </li>
-
-    <!-- UIP APWI -->
-    <li>
-        <i class="fa fa-code bg-blue"></i>
-        <div class="timeline-item">
-            <span class="time"><i class="fa fa-github"></i><a target="_blank" href="https://github.com/Janek7/UIP-APWI"> Github</a></span>
-            <h3 class="timeline-header"><a href="#">UIP APWI</a></h3>
-            <div class="timeline-body">
-                <b>Beschreibung:</b>
-                <ul>
-                    <li>Laden und Aufbereitung von Datensätzen</li>
-                    <li>Implementierung der Machine Learning Methoden k nearest neighbour, support vector machine und
-                        random forest
-                    </li>
-                </ul>
-                <p><b>Sprachen: </b>
-                    <span class="label bg-blue">Python</span>
-                    <span class="label bg-orange">HTML</span>
-                </p>
-            </div>
-        </div>
-    </li>
-
-    <!-- Minesweeper -->
-    <li>
-        <i class="fa fa-code bg-yellow"></i>
-        <div class="timeline-item">
-            <span class="time"><i class="fa fa-github"></i><a target="_blank"
-                                                              href="https://github.com/Janek7/Minesweeper"> Github</a></span>
-            <h3 class="timeline-header"><a href="#">Minesweeper</a></h3>
-            <div class="timeline-body">
-                <p><b>Beschreibung:</b> Minesweeper in JavaScript</p>
-                <p><b>Sprachen: </b>
-                    <span class="label bg-yellow">JavaScript</span>
-                    <span class="label bg-orange">HTML</span>
-                    <span class="label bg-green">CSS</span>
-                </p>
-            </div>
-        </div>
-    </li>
-
-    <!-- Februar -->
-    <li class="time-label">
-        <span class="bg-green">
-            Februar 2018
-        </span>
-    </li>
-
-    <!-- Community Discord Bot -->
-    <li>
-        <i class="fa fa-code bg-yellow-active"></i>
-        <div class="timeline-item">
-            <span class="time"><i class="fa fa-code-fork"></i><a target="_blank"
-                                                                 href="https://git.timolia.de/timolia/CommunityDiscordBot"> Gitlab</a></span>
-            <h3 class="timeline-header"><a href="#">Community Discord Bot</a></h3>
-            <div class="timeline-body">
-                <p><b>Beschreibung:</b> Community Discord Bot</p>
-                <p><b>Sprachen: </b> <span class="label bg-yellow-active">Java</span></p>
-            </div>
-        </div>
-    </li>
-
-    <!-- Dezember -->
-    <li class="time-label">
-        <span class="bg-green">
-            Dezember 2017
-        </span>
-    </li>
-
-    <!-- Community Discord Bot -->
-    <li>
-        <i class="fa fa-code bg-yellow-active"></i>
-        <div class="timeline-item">
-            <span class="time"><i class="fa fa-code-fork"></i><a target="_blank"
-                                                                 href="https://git.timolia.de/timolia/DiscordBot"> Gitlab</a></span>
-            <h3 class="timeline-header"><a href="#"> Discord Bot</a></h3>
-            <div class="timeline-body">
-                <p><b>Beschreibung:</b> Discord Bot mit Reminderfunktionen etc.</p>
-                <p><b>Sprachen: </b> <span class="label bg-yellow-active">Java</span></p>
-            </div>
-        </div>
-    </li>
-
-    <!-- Phase 10 -->
-    <li>
-        <i class="fa fa-code bg-yellow-active"></i>
-        <div class="timeline-item">
-            <span class="time"><i class="fa fa-github"></i><a target="_blank" href="https://github.com/Janek7/Phase10"> Github</a></span>
-            <h3 class="timeline-header"><a href="#">Phase 10</a></h3>
-            <div class="timeline-body">
-                <p><b>Beschreibung:</b> Implementierung von Phase10 gegen Bots mit JavaFX GUI</p>
-                <p><b>Sprachen: </b> <span class="label bg-yellow-active">Java</span></p>
-            </div>
-        </div>
-    </li>
-
-    <!-- Urpsrung -->
-    <li>
-        <i class="fa fa-clock-o bg-gray"></i>
-    </li>
-
-</ul>
+    </div>
+</div>
