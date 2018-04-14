@@ -41,7 +41,7 @@ $labelColors = [
             while ($language = $projectLanguageResult->fetch_assoc()) {
                 array_push($projectLanguages, $language);
             }
-            $mainLanguageColor = null;
+            $mainLanguageColor = "bg-white";
             foreach ($projectLanguages as $language) {
                 if ($language['main'] == "1") {
                     $mainLanguageColor = $labelColors[$language['name']];
@@ -65,8 +65,21 @@ $labelColors = [
             <li>
                 <i class="fa fa-code <?php echo $mainLanguageColor; ?>"></i>
                 <div class="timeline-item">
-                <span class="time"><i class="fa fa-bitbucket"></i><a target="_blank"
-                                                                     href="<?php echo $project['git_repo'] ?>">
+                    <?php
+                    $gitIcon = null;
+                    switch ($project['git_client']) {
+                        case "Github":
+                            $gitIcon = "fa-github";
+                            break;
+                        case "Bitbucket":
+                            $gitIcon = "fa-bitbucket";
+                            break;
+                        default:
+                            $gitIcon = "fa-code-fork";
+                    }
+                    ?>
+                    <span class="time"><i class="fa <?php echo $gitIcon; ?>"></i><a target="_blank"
+                                                                                    href="<?php echo $project['git_repo'] ?>">
                         <?php echo $project['git_client']; ?></a></span>
                     <h3 class="timeline-header"><a href="#"><?php echo $project['title']; ?></a></h3>
                     <div class="timeline-body">
@@ -130,26 +143,43 @@ $labelColors = [
                     <div class="form-group">
                         <label for="title" class="col-sm-2 control-label">Titel</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="title" name="title" placeholder="Titel" required="required"/>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Titel"
+                                   required="required"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="startDate" class="col-sm-2 control-label">Start Datum</label>
                         <div class="col-sm-10">
-                            <input type="date" class="form-control" id="startDate" name="startDate"  required="required"/>
+                            <input type="date" class="form-control" id="startDate" name="startDate"
+                                   required="required" value="<?php echo date('Y-m-d'); ?>"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="languages" class="col-sm-2 control-label">Sprachen</label>
                         <div class="col-sm-10">
-                            <select id="languages" multiple="multiple" name="languages" class="form-control" required="required">
-                                <option value="java">Java</option>
-                                <option value="html">HTML</option>
-                                <option value="css">CSS</option>
-                                <option value="js">JavaScript</option>
-                                <option value="python">Python</option>
-                                <option value="php">PHP</option>
-                                <option value="groovy">Groovy</option>
+                            <select id="languages" multiple="multiple" name="languages[]" class="form-control"
+                                    required="required">
+                                <option value="1">Java</option>
+                                <option value="2">HTML</option>
+                                <option value="3">CSS</option>
+                                <option value="4">JavaScript</option>
+                                <option value="5">PHP</option>
+                                <option value="6">Python</option>
+                                <option value="7">Groovy</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mainLanguage" class="col-sm-2 control-label">Haupt Sprache</label>
+                        <div class="col-sm-10">
+                            <select id="mainLanguage" name="mainLanguage" class="form-control" required="required">
+                                <option value="1">Java</option>
+                                <option value="2">HTML</option>
+                                <option value="3">CSS</option>
+                                <option value="4">JavaScript</option>
+                                <option value="5">PHP</option>
+                                <option value="6">Python</option>
+                                <option value="7">Groovy</option>
                             </select>
                         </div>
                     </div>
@@ -157,16 +187,26 @@ $labelColors = [
                         <label for="gitclient" class="col-sm-2 control-label">Git Client</label>
                         <div class="col-sm-10">
                             <select id="gitclient" name="gitclient" class="form-control" required="required">
-                                <option value="github" selected="selected">Github</option>
-                                <option value="bitbucket">Bitbucket</option>
-                                <option value="gitlab">Gitlab</option>
+                                <option value="Github" selected="selected">Github</option>
+                                <option value="Bitbucket">Bitbucket</option>
+                                <option value="Gitlab">Gitlab</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="gitrepo" class="col-sm-2 control-label">Repository</label>
                         <div class="col-sm-10">
-                            <input type="url" id="gitrepo" name="gitrepo" class="form-control" required="required"/>
+                            <input type="url" id="gitrepo" name="gitrepo" class="form-control" required="required"
+                                   placeholder="https://github.com/user/repository"/>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="state" class="col-sm-2 control-label">Status</label>
+                        <div class="col-sm-10">
+                            <select id="state" name="state" class="form-control" required="required">
+                                <option value="open" selected="selected">In Bearbeitung</option>
+                                <option value="closed">Fertig</option>
+                            </select>
                         </div>
                     </div>
                 </div>

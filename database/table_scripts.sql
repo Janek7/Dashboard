@@ -78,5 +78,6 @@ CREATE TABLE coding_project_languages
 (
     language_id INT REFERENCES coding_languages(id) ON DELETE CASCADE,
   project_id INT REFERENCES coding_projects(id) ON DELETE CASCADE,
+  main BOOLEAN DEFAULT FALSE,
   PRIMARY KEY(language_id, project_id)
 );
