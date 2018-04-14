@@ -1,11 +1,11 @@
 <?php
+session_start();
 require "functions/utils.php";
 require 'entities/Page.php';
 require 'entities/User.php';
 require 'entities/Role.php';
+require 'entities/CodingProject.php';
 
-//if session[user] == leer -> page = login bzw register
-session_start();
 if (!isset($_SESSION['userid'])) {
     header("Location: pages/login.php");
 }
@@ -32,15 +32,6 @@ logLastActivity($page);
     <link rel="stylesheet" href="adminlte/bower_components/Ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="adminlte/dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="adminlte/dist/css/skins/_all-skins.min.css">
-
-    <!--
-    <link href="adminlte/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="adminlte/bower_components/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css">
-    <script src="adminlte/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="adminlte/bower_components/morris.js/morris.min.js"></script>
-    -->
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>

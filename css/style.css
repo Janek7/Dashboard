@@ -12,3 +12,7 @@ body {
     border-style: solid;
     border-color: lightgrey;
 }
+
+small {
+    margin-left: 0.5%;
+}

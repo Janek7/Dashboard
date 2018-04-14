@@ -7,20 +7,10 @@
  */
 
 global $conn;
+global $languageLabelColors;
+global $codingProjects;
 $userid = $_SESSION['userid'];
-$sqlGetProjects = "SELECT * FROM coding_projects WHERE user_id = '$userid' ORDER BY start_date DESC;";
-$projectsResult = $conn->query($sqlGetProjects);
-
-$months = [""];
-$labelColors = [
-    "Java" => "bg-yellow-active",
-    "HTML" => "bg-orange",
-    "CSS" => "bg-green",
-    "JavaScript" => "bg-yellow",
-    "Python" => "bg-blue",
-    "PHP" => "bg-purple",
-    "Groovy" => "bg-brown"
-];
+$months = [];
 
 ?>
 <div class="row">
@@ -32,93 +22,55 @@ $labelColors = [
 <div>
     <ul class="timeline">
 
-        <?php while ($project = $projectsResult->fetch_assoc()):
-            $projectId = $project['id'];
-            $sqlGetProjectLanguages = "SELECT cl.name, cpl.main FROM coding_projects cp JOIN coding_project_languages cpl 
-                          ON cp.id = cpl.project_id JOIN coding_languages cl ON cpl.language_id = cl.id WHERE project_id = '$projectId';";
-            $projectLanguageResult = $conn->query($sqlGetProjectLanguages);
-            $projectLanguages = [];
-            while ($language = $projectLanguageResult->fetch_assoc()) {
-                array_push($projectLanguages, $language);
-            }
-            $mainLanguageColor = "bg-white";
-            foreach ($projectLanguages as $language) {
-                if ($language['main'] == "1") {
-                    $mainLanguageColor = $labelColors[$language['name']];
-                }
-            }
-            $projectStartDate = new DateTime($project['start_date']);
+        <?php foreach ($codingProjects as $project):
+            $projectStartDate = $project->getStartDateObject();
             $yearMonthString = date_format($projectStartDate, "y-m");
-            ?>
-            <!-- Month -->
-            <?php if (!in_array($yearMonthString, $months)): ?>
-            <li class="time-label">
-                <span class="bg-green">
+            if (!in_array($yearMonthString, $months)): ?>
+                <li class="time-label">
+                <span class="label-info">
                     <?php echo $projectStartDate->format("F Y"); ?>
                 </span>
-            </li>
-            <?php
-            array_push($months, $yearMonthString);
-        endif;
+                </li>
+                <?php
+                array_push($months, $yearMonthString);
+            endif;
             ?>
             <!-- Project -->
             <li>
-                <i class="fa fa-code <?php echo $mainLanguageColor; ?>"></i>
+                <i class="fa fa-code <?php echo $languageLabelColors[$project->getMainLanguage()]; ?>"></i>
                 <div class="timeline-item">
-                    <?php
-                    $gitIcon = null;
-                    switch ($project['git_client']) {
-                        case "Github":
-                            $gitIcon = "fa-github";
-                            break;
-                        case "Bitbucket":
-                            $gitIcon = "fa-bitbucket";
-                            break;
-                        default:
-                            $gitIcon = "fa-code-fork";
-                    }
-                    ?>
-                    <span class="time"><i class="fa <?php echo $gitIcon; ?>"></i><a target="_blank"
-                                                                                    href="<?php echo $project['git_repo'] ?>">
-                        <?php echo $project['git_client']; ?></a></span>
-                    <h3 class="timeline-header"><a href="#"><?php echo $project['title']; ?></a></h3>
+                <span class="time">
+                    <i class="fa <?php echo $project->getGitIcon(); ?>"></i>
+                    <a target="_blank"
+                       href="<?php echo $project->getGitRepo(); ?>"><?php echo $project->getGitClient(); ?></a>
+                </span>
+                    <h3 class="timeline-header">
+                        <a href="index.php?page=codingProject&project=<?php echo $project->getTitle(); ?>">
+                            <?php echo $project->getTitle(); ?></a>
+                    </h3>
                     <div class="timeline-body">
-                        <?php
-                        $stateLabelColor = null;
-                        $state = null;
-                        if ($project['state'] == "open") {
-                            $stateLabelColor = "label-success";
-                            $state = "In Bearbeitung";
-                        } else if ($project['state'] == "closed") {
-                            $stateLabelColor = "label-danger";
-                            $state = "Fertig";
-                        }
-                        ?>
-                        <p><b>Status: </b><span
-                                    class="label <?php echo $stateLabelColor; ?>"><?php echo $state; ?></span>
+                        <p><b>Status: </b><?php echo $project->getStateLabel(); ?>
                         </p>
                         <b>Beschreibung:</b>
                         <ul>
                             <?php
-                            $sqlGetProjectDesc = "SELECT text FROM coding_project_descriptions WHERE project_id = '$projectId';";
-                            $projectDescResult = $conn->query($sqlGetProjectDesc);
-                            while ($desc = $projectDescResult->fetch_assoc()) {
-                                echo "<li>" . $desc['text'] . "</li>";
+                            foreach ($project->getDesc() as $descText) {
+                                echo "<li>$descText</li>";
                             }
                             ?>
                         </ul>
                         <p>
                             <b>Sprachen:</b>
                             <?php
-                            foreach ($projectLanguages as $language) {
-                                echo "<span class=\"label " . $labelColors[$language['name']] . "\">" . $language['name'] . "</span>";
+                            foreach ($project->getLanguageLabels() as $languageLabel) {
+                                echo $languageLabel;
                             }
                             ?>
                         </p>
                     </div>
                 </div>
             </li>
-        <?php endwhile; ?>
+        <?php endforeach; ?>
         <!-- Urpsrung -->
         <li>
             <i class="fa fa-clock-o bg-gray"></i>

@@ -1,0 +1,22 @@
+#deleteButton {
+    background-color: #DD4B39;
+    color: black;
+}
+
+#changeStateButton {
+    background-color: #096d0d;
+    color: white;
+}
+
+#changeTitleButton {
+    background-color: #ffd700;
+    color: black;
+}
+
+.descBox li {
+    font-size: 120%;
+}
+
+.languageLabelBox span {
+    margin-right: 2%;
+}

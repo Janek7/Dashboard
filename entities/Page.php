@@ -6,6 +6,13 @@
  * Time: 22:12
  */
 
+$ocdingProjectTitle = "Kein Projekt";
+$codingProjectSmallTitle = "Leider können keine Infos bereitgestellt werden :/";
+if (isset($_GET['project'])) {
+    $ocdingProjectTitle = $_GET['project'];
+    $codingProjectSmallTitle = "Hier siehst du alle Infos zum Projekt " . $ocdingProjectTitle;
+}
+
 $pages = [
     'main' => new Page("Startseite", "Willkommen im Dashboard", "main",
         null, "", ""),
@@ -20,10 +27,14 @@ $pages = [
         null, "", ""),
     'codingProjects' => new Page("Projekte", "Übersicht zu allen Projekten", "codingProjects",
         "2", "<link rel=\"stylesheet\" href=\"css/codingProjects.css\">",
-        "<script src=\"js/codingProjectsPage.js\"></script>")
+        "<script src=\"js/codingProjectsPage.js\"></script>"),
+    'codingProject' => new Page($ocdingProjectTitle, $codingProjectSmallTitle, "codingProject",
+        "2", "<link rel=\"stylesheet\" href=\"css/codingProject.css\">",
+        "<script src=\"js/codingProjectPage.js\"></script>")
 ];
 
-class Page {
+class Page
+{
 
     private $name;
     private $headerSmall;
@@ -32,7 +43,8 @@ class Page {
     private $extraCSSSheets;
     private $extraJSScripts;
 
-    public function __construct($name, $headerSmall, $fileName, $viewPerm, $extraCSSSheets, $extraJSScripts) {
+    public function __construct($name, $headerSmall, $fileName, $viewPerm, $extraCSSSheets, $extraJSScripts)
+    {
         $this->name = $name;
         $this->headerSmall = $headerSmall;
         $this->fileName = $fileName;
@@ -41,31 +53,38 @@ class Page {
         $this->extraJSScripts = $extraJSScripts;
     }
 
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->name . " | Dashboard";
     }
 
-    public function getHeader() {
+    public function getHeader()
+    {
         return $this->name . "<small>" . $this->headerSmall . "</small>";
     }
 
-    public function getViewPerm() {
+    public function getViewPerm()
+    {
         return $this->viewPerm;
     }
 
-    public function getExtraCSSSheets() {
+    public function getExtraCSSSheets()
+    {
         return $this->extraCSSSheets;
     }
 
-    public function getExtraJSScripts() {
+    public function getExtraJSScripts()
+    {
         return $this->extraJSScripts;
     }
 
-    public function getNavText() {
+    public function getNavText()
+    {
         return $this->name;
     }
 
-    public function getContent() {
+    public function getContent()
+    {
         return include("pages/" . $this->fileName . ".php");
     }
 

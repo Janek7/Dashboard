@@ -55,7 +55,7 @@ CREATE TABLE coding_projects
 (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
-    title VARCHAR(50) NOT NULL,
+    title VARCHAR(50) NOT NULL UNIQUE ,
     start_date TIMESTAMP NOT NULL,
     git_client VARCHAR(20) NOT NULL,
     git_repo VARCHAR(200)

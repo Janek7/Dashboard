@@ -48,3 +48,18 @@ function logLastActivity($page) {
     global $conn;
     $conn->query($sql);
 }
+
+function getGitIcon($project) {
+    $gitIcon = null;
+    switch ($project['git_client']) {
+        case "Github":
+            $gitIcon = "fa-github";
+            break;
+        case "Bitbucket":
+            $gitIcon = "fa-bitbucket";
+            break;
+        default:
+            $gitIcon = "fa-code-fork";
+    }
+    return $gitIcon;
+}
