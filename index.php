@@ -24,7 +24,7 @@ logLastActivity($page);
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><?php $page->getTitle()?></title>
+    <title><?php $page->getTitle() ?></title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <link rel="stylesheet" href="adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -51,7 +51,7 @@ logLastActivity($page);
 
     <!-- Eigene CSS Sheets -->
     <link rel="stylesheet" href="css/style.css">
-    <?php echo $page->getExtraCSSSheets()?>
+    <?php echo $page->getExtraCSSSheets() ?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -78,13 +78,20 @@ logLastActivity($page);
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs"><b><?php echo $user->getName()?></b></span>
+                            <span class="hidden-xs"><b><?php echo $user->getName() ?></b></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
                                 <img src="adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                <p><?php echo $user->getName()?> - Developer</p>
+                                <p>
+                                    <?php
+                                    echo $user->getName() . " - ";
+                                    /*foreach ($user->getRoles() as $role) {
+                                        echo $role . ", ";
+                                    }*/
+                                    ?>
+                                </p>
                             </li>
                             <!-- Menu Body -->
                         </ul>
@@ -106,7 +113,7 @@ logLastActivity($page);
                     <img src="images/user.png" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p><?php echo $_SESSION['username']?></p>
+                    <p><?php echo $_SESSION['username'] ?></p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
@@ -115,20 +122,21 @@ logLastActivity($page);
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">Menü</li>
 
-                <?php if($user->hasPerm("2")) : ?>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-code"></i> <span>Proggen</span>
-                        <span class="pull-right-container">
+                <?php if ($user->hasPerm("2")) : ?>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-code"></i> <span>Proggen</span>
+                            <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="index.php?page=codingProjects"><i class="fa fa-table"></i>Projekte</a></li>
-                        <li><a target="_blank" href="https://github.com/Janek7"><i class="fa fa-code-fork"></i>Git</a>
-                        </li>
-                    </ul>
-                </li>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="index.php?page=codingProjects"><i class="fa fa-table"></i>Projekte</a></li>
+                            <li><a target="_blank" href="https://github.com/Janek7"><i
+                                            class="fa fa-code-fork"></i>Git</a>
+                            </li>
+                        </ul>
+                    </li>
                 <?php endif; ?>
 
                 <li>
@@ -186,20 +194,20 @@ logLastActivity($page);
                     </ul>
                 </li>
 
-                <?php if($user->hasPerm("4")) : ?>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-server"></i> <span>Administration</span>
-                        <span class="pull-right-container">
+                <?php if ($user->hasPerm("4")) : ?>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-server"></i> <span>Administration</span>
+                            <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="index.php?page=userManagement"><i class="fa fa-users"></i>Nutzer Verwaltung</a>
-                        </li>
-                    </ul>
-                </li>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="index.php?page=userManagement"><i class="fa fa-users"></i>Nutzer Verwaltung</a>
+                            </li>
+                        </ul>
+                    </li>
                 <?php endif; ?>
 
                 <li class="treeview">
@@ -223,7 +231,7 @@ logLastActivity($page);
             </h1>
             <ol class="breadcrumb">
                 <li><a href="index.php"><i class="fa fa-dashboard"></i>Home</a></li>
-                <li class="active"><?php echo $page->getNavText()?></li>
+                <li class="active"><?php echo $page->getNavText() ?></li>
             </ol>
         </section>
 

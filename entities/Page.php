@@ -19,7 +19,7 @@ $pages = [
     'noperms' => new Page("Error", "Keine Berechtigungen :/", "noperms",
         null, "", ""),
     'codingProjects' => new Page("Projekte", "Übersicht zu allen Projekten", "codingProjects",
-        "2", "", "")
+        "2", "<link rel=\"stylesheet\" href=\"css/codingProjects.css\">", "")
 ];
 
 class Page {
