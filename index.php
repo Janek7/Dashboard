@@ -215,14 +215,14 @@ logLastActivity($page);
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
+            <h1 id="header">
                 <?php
                 echo $page->getHeader();
                 ?>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="index.php"><i class="fa fa-dashboard"></i>Home</a></li>
-                <li class="active"><?php echo $page->getNavText() ?></li>
+                <li class="active" id="navText"><?php echo $page->getNavText() ?></li>
             </ol>
         </section>
 

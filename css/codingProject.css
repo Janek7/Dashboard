@@ -20,3 +20,11 @@
 .languageLabelBox span {
     margin-right: 2%;
 }
+
+#successAlertBox {
+    display: none;
+}
+
+#dummieInput {
+    display: none;
+}

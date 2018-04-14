@@ -76,6 +76,10 @@ class CodingProject {
         return $this->title;
     }
 
+    public function setTitle($title) {
+        return $this->title = $title;
+    }
+
     public function getStartDateObject(): DateTime {
         return $this->startDate;
     }
@@ -144,6 +148,10 @@ class CodingProject {
         }
     }
 
+    public function setState($state) {
+        return $this->state = $state;
+    }
+
     public function getDesc(): array {
         return $this->desc;
     }
@@ -171,6 +179,16 @@ function getProjectFromTitle($title) {
     global $codingProjects;
     foreach ($codingProjects as $project) {
         if ($project->getTitle() == $title) {
+            return $project;
+        }
+    }
+    return null;
+}
+
+function getProjectFromId($id) {
+    global $codingProjects;
+    foreach ($codingProjects as $project) {
+        if ($project->getId() == $id) {
             return $project;
         }
     }

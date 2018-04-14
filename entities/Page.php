@@ -85,7 +85,7 @@ class Page
 
     public function getContent()
     {
-        return include("pages/" . $this->fileName . ".php");
+        include("pages/" . $this->fileName . ".php");
     }
 
 }
