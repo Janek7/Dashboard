@@ -6,6 +6,7 @@
  * Time: 21:20
  */
 
+require 'Workstep.php';
 global $conn;
 global $languageLabelColors;
 global $codingProjects;
@@ -34,18 +35,21 @@ class CodingProject {
     private $title;
     private $startDate;
     private $gitClient;
-    private $gitRepo;
+    private $gitRepoLink;
+    private $gitRepoName;
     private $state;
     private $desc = [];
     private $languages = [];
     private $mainLanguage;
+    private $workSteps = [];
 
     function __construct($project) {
         $this->id = $project['id'];
         $this->title = $project['title'];
         $this->startDate = new DateTime($project['start_date']);
         $this->gitClient = $project['git_client'];
-        $this->gitRepo = $project['git_repo'];
+        $this->gitRepoLink = $project['git_repo_link'];
+        $this->gitRepoName = $project['git_repo_name'];
         $this->state = $project['state'];
 
         global $conn;
@@ -64,6 +68,12 @@ class CodingProject {
             if ($language['main'] == "1") {
                 $this->mainLanguage = $language['name'];
             }
+        }
+
+        $sqlGetProjectWorksteps = "SELECT * FROM coding_worksteps WHERE project_id='$this->id' ORDER BY end_date DESC";
+        $projectWorkstepResult = $conn->query($sqlGetProjectWorksteps);
+        while ($workstep = $projectWorkstepResult->fetch_assoc()) {
+            array_push($this->workSteps, new Workstep($workstep));
         }
 
     }
@@ -92,8 +102,12 @@ class CodingProject {
         return $this->gitClient;
     }
 
-    public function getGitRepo(){
-        return $this->gitRepo;
+    public function getGitRepoLink(){
+        return $this->gitRepoLink;
+    }
+
+    public function getGitRepoName() {
+        return $this->gitRepoName;
     }
 
     public function getGitIcon() {
@@ -172,6 +186,12 @@ class CodingProject {
     public function getMainLanguage() {
         return $this->mainLanguage;
     }
+
+    public function getWorkSteps(): array {
+        return $this->workSteps;
+    }
+
+
 
 }
 

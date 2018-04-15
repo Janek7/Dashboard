@@ -13,6 +13,19 @@
     color: black;
 }
 
+#gitButton {
+    color: black;
+}
+
+#workstepButton {
+    background-color: #337AB7;;
+    color: white;
+}
+
+#workstepBox {
+    background-color: #337AB7;
+}
+
 .descBox li {
     font-size: 120%;
 }

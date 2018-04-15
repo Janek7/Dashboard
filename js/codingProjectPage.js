@@ -6,6 +6,10 @@ $("#deleteButton").click(function () {
     $("#delteModal").css("display", "block");
 });
 
+$("#closeDeleteModal").click(function () {
+    $("#delteModal").fadeOut();
+});
+
 
 //CHANGE STATE STUFF
 $("#changeStateButton").click(function () {
