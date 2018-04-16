@@ -235,7 +235,9 @@ if ($project->getGitClient() == "Github") {
                                 echo "<td><a target='_blank' href='" . $commit['html_url'] . "'>"
                                     . substr($commit['sha'], 0, 7) . "...</a></td>";
                                 echo "<td>" . $commit['commit']['message'] . "</td>";
-                                echo "<td>" . $commit['commit']['author']['date'] . "</td>";
+                                $dateString = str_replace("T", " ", $commit['commit']['author']['date']);
+                                $dateString = str_replace("Z", " ", $dateString);
+                                echo "<td>" . $dateString . "</td>";
                                 echo "</tr>";
                             }
                             ?>
@@ -363,6 +365,51 @@ if ($project->getGitClient() == "Github") {
                         <button type="submit" id="deleteModalButton" class="btn btn-danger pull-right">Löschen
                         </button>
                     </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- New Workstep Modal -->
+<div id="newWorkstepModal" class="model-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button id="closeNewWorkstepModal" type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title">Neuen Arbeitsschritt anlegen</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" action="functions/insertCodingWorkstep.php" method="post">
+                <div class="box-body">
+                    <input type="hidden" class="form-control" name="projectTitle" value="<?php echo $project->getTitle();?>"/>
+                    <input type="hidden" class="form-control" name="projectId" value="<?php echo $project->getId();?>"/>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">Text</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="workstepText" name="workstepText"
+                                   placeholder="Text" required="required"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate" class="col-sm-2 control-label">Start</label>
+                        <div class="col-sm-10">
+                            <input type="datetime-local" class="form-control" id="startDate" name="startDate"
+                                   required="required" value="<?php echo date('Y-m-d\TH:i:s'); ?>"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate" class="col-sm-2 control-label">Ende</label>
+                        <div class="col-sm-10">
+                            <input type="datetime-local" class="form-control" id="endDate" name="endDate"
+                                   required="required" value="<?php echo date('Y-m-d\TH:i:s'); ?>"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-info pull-right">Erstellen</button>
                 </div>
             </form>
         </div>

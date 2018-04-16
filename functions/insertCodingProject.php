@@ -38,5 +38,4 @@ foreach ($languages as $language) {
     $conn->query($sqlInsertLanguage);
 }
 
-//TODO: Link auf Project Page
-header("Location: ../index.php?page=codingProjects");
+header("Location: ../index.php?page=codingProjects&project='$title'");

@@ -3,7 +3,7 @@ body {
 }
 
 .model-dialog {
-    position: absolute;
+    position: fixed;
     top: 5%;
     left: 40%;
     width: 40%;

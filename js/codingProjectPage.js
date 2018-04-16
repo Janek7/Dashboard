@@ -1,6 +1,15 @@
 'use strict';
 
 // Action Buttons
+//WORKSTEP STUFF
+$("#closeNewWorkstepModal").click(function () {
+    $("#newWorkstepModal").fadeOut();
+});
+
+$("#workstepButton").click(function () {
+    $("#newWorkstepModal").css("display", "block");
+});
+
 //DELETE STUFF
 $("#deleteButton").click(function () {
     $("#delteModal").css("display", "block");

@@ -90,7 +90,7 @@ $months = [];
             <h4 id="permModalTitle" class="modal-title">Neues Projekt anlegen</h4>
         </div>
         <div class="modal-body">
-            <form class="form-horizontal" action="functions/insertProject.php" method="post">
+            <form class="form-horizontal" action="functions/insertCodingProject.php" method="post">
                 <div class="box-body">
                     <div class="form-group">
                         <label for="title" class="col-sm-2 control-label">Titel</label>
