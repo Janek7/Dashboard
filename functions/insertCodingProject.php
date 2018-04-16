@@ -12,18 +12,22 @@ session_start();
 $userid = $_SESSION['userid'];
 
 $title = $_POST['title'];
-$startDate = $_POST['startDate'];
+$startDate = date_create_from_format("Y-m-d", $_POST['startDate']);
+$startDate = $startDate->getTimestamp();
+echo $startDate;
 $languages = [];
 foreach ($_POST['languages'] as $selectedLanguage) {
     array_push($languages, $selectedLanguage);
 }
 $mainLanguage = $_POST['mainLanguage'];
 $gitClient = $_POST['gitclient'];
-$gitRepo = $_POST['gitrepo'];
+$gitRepoLink = $_POST['gitRepoLink'];
+$gitRepoName = $_POST['gitRepoName'];
 $state = $_POST['state'];
 
-$sqlInsertProject = "INSERT INTO coding_projects (user_id, title, start_date, git_client, git_repo, state)
-                      VALUES ('$userid', '$title', '$startDate', '$gitClient', '$gitRepo', '$state')";
+$sqlInsertProject = "INSERT INTO coding_projects (user_id, title, start_date, git_client, git_repo_link, git_repo_name, state)
+                      VALUES ('$userid', '$title', FROM_UNIXTIME($startDate), '$gitClient', '$gitRepoLink', '$gitRepoName', '$state')";
+echo $sqlInsertProject;
 $conn->query($sqlInsertProject);
 
 $sqlGetProjectId = "SELECT id FROM coding_projects ORDER BY id DESC limit 1";
@@ -38,4 +42,4 @@ foreach ($languages as $language) {
     $conn->query($sqlInsertLanguage);
 }
 
-header("Location: ../index.php?page=codingProjects&project='$title'");
+header("Location: ../index.php?page=codingProjects&project=$title");

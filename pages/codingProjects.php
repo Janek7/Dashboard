@@ -42,23 +42,23 @@ $months = [];
                 <span class="time">
                     <i class="fa <?php echo $project->getGitIcon(); ?>"></i>
                     <a target="_blank"
-                       href="<?php echo $project->getGitRepo(); ?>"><?php echo $project->getGitClient(); ?></a>
+                       href="<?php echo $project->getGitRepoLink(); ?>"><?php echo $project->getGitClient(); ?></a>
                 </span>
                     <h3 class="timeline-header">
                         <a href="index.php?page=codingProject&project=<?php echo $project->getTitle(); ?>">
                             <?php echo $project->getTitle(); ?></a>
                     </h3>
                     <div class="timeline-body">
-                        <p><b>Status: </b><?php echo $project->getStateLabel(); ?>
-                        </p>
+                        <p><b>Status: </b><?php echo $project->getStateLabel(); ?></p>
                         <b>Beschreibung:</b>
-                        <ul>
+                        <ul id="desc">
                             <?php
                             foreach ($project->getDesc() as $descText) {
                                 echo "<li>$descText</li>";
                             }
                             ?>
                         </ul>
+                        <p><b>Arbeitszeit: </b><?php echo $project->getTime(); ?></p>
                         <p>
                             <b>Sprachen:</b>
                             <?php
@@ -146,9 +146,16 @@ $months = [];
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="gitrepo" class="col-sm-2 control-label">Repository</label>
+                        <label for="gitreponame" class="col-sm-2 control-label">Repository Name</label>
                         <div class="col-sm-10">
-                            <input type="url" id="gitrepo" name="gitrepo" class="form-control" required="required"
+                            <input type="te" id="gitreponame" name="gitRepoName" class="form-control" required="required"
+                                   placeholder="Repository"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gitrepolink" class="col-sm-2 control-label">Repository Link</label>
+                        <div class="col-sm-10">
+                            <input type="url" id="gitrepolink" name="gitRepoLink" class="form-control" required="required"
                                    placeholder="https://github.com/user/repository"/>
                         </div>
                     </div>

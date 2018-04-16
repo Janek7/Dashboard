@@ -42,6 +42,7 @@ class CodingProject {
     private $languages = [];
     private $mainLanguage;
     private $workSteps = [];
+    private $time;
 
     function __construct($project) {
         $this->id = $project['id'];
@@ -75,6 +76,12 @@ class CodingProject {
         while ($workstep = $projectWorkstepResult->fetch_assoc()) {
             array_push($this->workSteps, new Workstep($workstep));
         }
+
+        $sqlGetTime = "SELECT ROUND(SUM(TIMESTAMPDIFF(MINUTE, start_date, end_date))/60) as hours 
+                              FROM coding_worksteps WHERE project_id = '$this->id'";
+        $timeResult = $conn->query($sqlGetTime);
+        $time = $timeResult->fetch_assoc();
+        $this->time = $time['hours'] . " Stunde" . ($time['hours'] != "1" ? "n" : "");
 
     }
 
@@ -189,6 +196,10 @@ class CodingProject {
 
     public function getWorkSteps(): array {
         return $this->workSteps;
+    }
+
+    public function getTime(): string {
+        return $this->time != " Stunden" ? $this->time : "Nicht geloggt";
     }
 
 

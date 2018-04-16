@@ -41,3 +41,7 @@
 #dummieInput {
     display: none;
 }
+
+#workstepTimeColumn {
+    width: 18%;
+}

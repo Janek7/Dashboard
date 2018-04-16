@@ -95,14 +95,7 @@ if ($project->getGitClient() == "Github") {
                     <div class="info-box-content">
                         <span class="info-box-text">Entwicklungszeit</span>
                         <span class="info-box-number">
-                        <?php
-                        $projectid = $project->getId();
-                        $sqlGetTime = "SELECT SUM(TIMESTAMPDIFF(HOUR, start_date, end_date)) as hours 
-                              FROM coding_worksteps WHERE project_id = '$projectid'";
-                        $timeResult = $conn->query($sqlGetTime);
-                        $time = $timeResult->fetch_assoc();
-                        echo $time['hours'] . " Stunde" . ($time['hours'] != "1" ? "n" : "");
-                        ?>
+                        <?php echo $project->getTime(); ?>
                     </span>
                     </div>
                 </div>
@@ -191,7 +184,7 @@ if ($project->getGitClient() == "Github") {
                             <tbody>
                             <tr>
                                 <th>Text</th>
-                                <th>Zeit</th>
+                                <th id="workstepTimeColumn">Zeit</th>
                                 <th>Beginn</th>
                                 <th>Ende</th>
                             </tr>

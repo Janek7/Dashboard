@@ -10,6 +10,11 @@ $("#workstepButton").click(function () {
     $("#newWorkstepModal").css("display", "block");
 });
 
+
+//GIT STUFF
+
+
+
 //DELETE STUFF
 $("#deleteButton").click(function () {
     $("#delteModal").css("display", "block");
