@@ -262,13 +262,13 @@ if ($project->getGitClient() == "Github") {
         <!-- Git Box -->
         <div class="small-box bg-aqua">
             <div class="inner">
-                <h3><?php echo $project->getGitRepoName(); ?></h3>
-                <p><?php echo $project->getGitClient(); ?></p>
+                <h3 id="gitRepoName"><?php echo $project->getGitRepoName(); ?></h3>
+                <p id="gitClient"><?php echo $project->getGitClient(); ?></p>
             </div>
             <div class="icon">
-                <i class="fa <?php echo $project->getGitIcon(); ?>"></i>
+                <i id="gitIcon" class="fa <?php echo $project->getGitIcon(); ?>"></i>
             </div>
-            <a href="<?php echo $project->getGitRepoLink(); ?>" target="_blank" class="small-box-footer">
+            <a id="gitRepoLink" href="<?php echo $project->getGitRepoLink(); ?>" target="_blank" class="small-box-footer">
                 Repository <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -405,6 +405,61 @@ if ($project->getGitClient() == "Github") {
                     <button type="submit" class="btn btn-info pull-right">Erstellen</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Git Modal -->
+<div id="gitModal" class="model-dialog"
+     data-projectid="<?php echo $project->getId();?>"
+     data-projecttitle="<?php echo $project->getTitle();?>"
+     data-gitclient="<?php echo $project->getGitClient();?>"
+     data-gitrepoName="<?php echo $project->getGitRepoName();?>"
+     data-gitrepoLink="<?php echo $project->getGitRepoLink();?>"
+     data-giticon="<?php echo $project->getGitIcon(); ?>">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button id="closeGitModal" type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title">Git Einstellungen konfigurieren</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="gitclient" class="col-sm-2 control-label">Git Client</label>
+                        <div class="col-sm-10">
+                            <select id="gitclient" class="form-control" required="required">
+                                <option <?php echo $project->getGitClient() == "Github" ? "selected=\"selected\"" : "";?>>
+                                    Github</option>
+                                <option <?php echo $project->getGitClient() == "Bitbucket" ? "selected=\"selected\"" : "";?>>
+                                    Bitbucket</option>
+                                <option <?php echo $project->getGitClient() == "Gitlab" ? "selected=\"selected\"" : "";?>>
+                                    Gitlab</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="repoNameInput" class="col-sm-2 control-label">Repository Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="repoNameInput" placeholder="Repository Name"
+                                   required="required" value="<?php echo $project->getGitRepoName(); ?>"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="repoLinkInput" class="col-sm-2 control-label">Repository Link</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="repoLinkInput"
+                                   required="required" value="<?php echo $project->getGitRepoLink(); ?>"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button id="saveGitButton" class="btn btn-info pull-right">Speichern</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

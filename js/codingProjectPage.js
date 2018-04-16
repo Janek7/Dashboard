@@ -12,7 +12,37 @@ $("#workstepButton").click(function () {
 
 
 //GIT STUFF
+$("#closeGitModal").click(function () {
+    $("#gitModal").fadeOut();
+});
 
+$("#gitButton").click(function () {
+    $("#gitModal").css("display", "block");
+});
+
+$("#saveGitButton").click(function () {
+    var gitModal = $("#gitModal");
+    var clientValue = $("#gitclient").val();
+    var repoNameValue = $("#repoNameInput").val();
+    var repoLinkValue = $("#repoLinkInput").val();
+    var phpcall = "functions/updateGitData.php?projectid=" + gitModal.data("projectid") + "&projecttitle="
+        + gitModal.data("projecttitle") + "&";
+    var basicPhpcall = phpcall;
+    if (clientValue != gitModal.data("gitclient")) {
+        phpcall += "gitClient=" + clientValue + "&";
+    }
+    if (repoNameValue != gitModal.data("gitreponame")) {
+        phpcall += "repoName=" + repoNameValue + "&";
+    }
+    if (repoLinkValue != gitModal.data("gitrepolink")) {
+        phpcall += "repoLink=" + repoLinkValue + "&";
+    }
+    if (phpcall != basicPhpcall) {
+        alert(phpcall);
+        $.get(phpcall);
+    }
+    gitModal.fadeOut();
+});
 
 
 //DELETE STUFF
