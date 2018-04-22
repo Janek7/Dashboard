@@ -45,3 +45,12 @@
 #workstepTimeColumn {
     width: 18%;
 }
+
+.descRemoveBtn {
+    background-color: #DD4B39;
+
+}
+
+.descEditBtn {
+    background-color: #ffd700;
+}

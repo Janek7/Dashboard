@@ -55,10 +55,10 @@ class CodingProject {
 
         global $conn;
 
-        $sqlGetProjectDesc = "SELECT text FROM coding_project_descriptions WHERE project_id = '$this->id';";
+        $sqlGetProjectDesc = "SELECT id, text FROM coding_project_descriptions WHERE project_id = '$this->id';";
         $projectDescResult = $conn->query($sqlGetProjectDesc);
         while ($desc = $projectDescResult->fetch_assoc()) {
-            array_push($this->desc, $desc['text']);
+            $this->desc[$desc['id']] = $desc['text'];
         }
 
         $sqlGetProjectLanguages = "SELECT cl.name, cpl.main FROM coding_projects cp JOIN coding_project_languages cpl 

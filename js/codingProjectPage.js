@@ -1,6 +1,51 @@
 'use strict';
 
-// Action Buttons
+//DESC STUFF
+//Kleine Buttons
+$(".descEditBtn").click(function () {
+    alert("soon");
+});
+
+$(".descRemoveBtn").click(function () {
+    var descid = this.dataset['descid'];
+    var phpcall = "functions/deleteDesc.php?descid=" + descid;
+    $.get(phpcall, function () {
+        var desc = $("#desc" + descid);
+        var descText = desc.text();
+        desc.remove();
+        $("#successAlertText").html("Die Beschreibung '" + descText + "' wurde erfolgreich gelöscht!");
+        $('#successAlertBox').css("display", "Block");
+    })
+});
+
+//Desc Add
+$("#addDescButton").click(function () {
+    $("#newDescModal").css("display", "block");
+});
+
+$("#closeNewDescModal").click(function () {
+    $("#newDescModal").fadeOut();
+});
+
+$("#saveNewDesc").click(function () {
+    var textVal = $("#descText").val();
+    if (textVal != "") {
+        var phpcall = "functions/insertDesc.php?projectId=" + $("#project").data("id") + "&descText=" + textVal;
+        $.get(phpcall, function (data, status) {
+            var json = JSON.parse(data);
+            var newElement = "<li id='desc" + json['id'] + "'>" + json['text'] + "<span class='pull-right'>" +
+                "<button class='btn btn-xs descEditBtn' data-descid='" + json['id'] + "'><i class='fa fa-pencil'></i></button>" +
+                "<button class='btn btn-xs descRemoveBtn' data-descid='" + json['id'] + "'><i class='fa fa-ban'></i></button>" +
+                "</span></li>";
+            $("#descList").append(newElement);
+            $("#successAlertText").html("Die Beschreibung '" + textVal + "' wurde erfolgreich hinzugefügt!");
+            $('#successAlertBox').css("display", "Block");
+        });
+    }
+    $("#newDescModal").fadeOut();
+});
+
+
 //WORKSTEP STUFF
 $("#closeNewWorkstepModal").click(function () {
     $("#newWorkstepModal").fadeOut();

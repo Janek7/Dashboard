@@ -118,7 +118,8 @@ if ($project->getGitClient() == "Github") {
                     <span class="info-box-icon bg-aqua"><i class="fa fa-code"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Commits</span>
-                        <span class="info-box-number"><?php echo count($commitList); ?></span>
+                        <span class="info-box-number"><?php echo $commitList ? count($commitList)
+                                : "Momentan leider nur bei Github :/"; ?></span>
                     </div>
                 </div>
             </div>
@@ -156,9 +157,18 @@ if ($project->getGitClient() == "Github") {
                         </div>
                     </div>
                     <div class="box-body">
-                        <ul>
-                            <?php foreach ($project->getDesc() as $descText) {
-                                echo "<li>" . $descText . "</li>";
+                        <ul id="descList">
+                            <?php foreach ($project->getDesc() as $id => $text) {
+                                //Mit data-descid attribut versehen
+                                //Mit Tabelle lösen
+                                echo "<li id='desc" . $id . "'>" . $text;
+                                echo "<span class='pull-right'>";
+                                echo "<button class='btn btn-xs descEditBtn' data-descid=\"" . $id  . "\">
+                                        <i class='fa fa-pencil'></i></button>";
+                                echo "<button class='btn btn-xs descRemoveBtn' data-descid=\"" . $id  . "\">
+                                        <i class='fa fa-ban'></i></button>";
+                                echo "</span>";
+                                echo "</li>";
                             } ?>
                         </ul>
                     </div>
@@ -255,7 +265,7 @@ if ($project->getGitClient() == "Github") {
                 <a class="btn btn-app bg-aqua" id="gitButton"><i class="fa fa-code-fork"></i>Git</a>
                 <a class="btn btn-app" id="changeTitleButton"><i class="fa fa-edit"></i>Titel</a>
                 <a class="btn btn-app bg-orange" id="languageButton"><i class="fa fa-code"></i>Sprachen</a>
-                <a class="btn btn-app bg-blue" id="changeDescButton"><i class="fa fa-edit"></i>Beschreibung</a>
+                <a class="btn btn-app bg-blue" id="addDescButton"><i class="fa fa-edit"></i>Beschreibung</a>
                 <a class="btn btn-app" id="deleteButton"><i class="fa fa-ban"></i>Löschen</a>
             </div>
         </div>
@@ -268,7 +278,8 @@ if ($project->getGitClient() == "Github") {
             <div class="icon">
                 <i id="gitIcon" class="fa <?php echo $project->getGitIcon(); ?>"></i>
             </div>
-            <a id="gitRepoLink" href="<?php echo $project->getGitRepoLink(); ?>" target="_blank" class="small-box-footer">
+            <a id="gitRepoLink" href="<?php echo $project->getGitRepoLink(); ?>" target="_blank"
+               class="small-box-footer">
                 Repository <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -377,8 +388,10 @@ if ($project->getGitClient() == "Github") {
         <div class="modal-body">
             <form class="form-horizontal" action="functions/insertCodingWorkstep.php" method="post">
                 <div class="box-body">
-                    <input type="hidden" class="form-control" name="projectTitle" value="<?php echo $project->getTitle();?>"/>
-                    <input type="hidden" class="form-control" name="projectId" value="<?php echo $project->getId();?>"/>
+                    <input type="hidden" class="form-control" name="projectTitle"
+                           value="<?php echo $project->getTitle(); ?>"/>
+                    <input type="hidden" class="form-control" name="projectId"
+                           value="<?php echo $project->getId(); ?>"/>
                     <div class="form-group">
                         <label for="title" class="col-sm-2 control-label">Text</label>
                         <div class="col-sm-10">
@@ -412,11 +425,11 @@ if ($project->getGitClient() == "Github") {
 
 <!-- Git Modal -->
 <div id="gitModal" class="model-dialog"
-     data-projectid="<?php echo $project->getId();?>"
-     data-projecttitle="<?php echo $project->getTitle();?>"
-     data-gitclient="<?php echo $project->getGitClient();?>"
-     data-gitrepoName="<?php echo $project->getGitRepoName();?>"
-     data-gitrepoLink="<?php echo $project->getGitRepoLink();?>"
+     data-projectid="<?php echo $project->getId(); ?>"
+     data-projecttitle="<?php echo $project->getTitle(); ?>"
+     data-gitclient="<?php echo $project->getGitClient(); ?>"
+     data-gitrepoName="<?php echo $project->getGitRepoName(); ?>"
+     data-gitrepoLink="<?php echo $project->getGitRepoLink(); ?>"
      data-giticon="<?php echo $project->getGitIcon(); ?>">
     <div class="modal-content">
         <div class="modal-header">
@@ -432,12 +445,15 @@ if ($project->getGitClient() == "Github") {
                         <label for="gitclient" class="col-sm-2 control-label">Git Client</label>
                         <div class="col-sm-10">
                             <select id="gitclient" class="form-control" required="required">
-                                <option <?php echo $project->getGitClient() == "Github" ? "selected=\"selected\"" : "";?>>
-                                    Github</option>
-                                <option <?php echo $project->getGitClient() == "Bitbucket" ? "selected=\"selected\"" : "";?>>
-                                    Bitbucket</option>
-                                <option <?php echo $project->getGitClient() == "Gitlab" ? "selected=\"selected\"" : "";?>>
-                                    Gitlab</option>
+                                <option <?php echo $project->getGitClient() == "Github" ? "selected=\"selected\"" : ""; ?>>
+                                    Github
+                                </option>
+                                <option <?php echo $project->getGitClient() == "Bitbucket" ? "selected=\"selected\"" : ""; ?>>
+                                    Bitbucket
+                                </option>
+                                <option <?php echo $project->getGitClient() == "Gitlab" ? "selected=\"selected\"" : ""; ?>>
+                                    Gitlab
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -458,6 +474,35 @@ if ($project->getGitClient() == "Github") {
                 </div>
                 <div class="box-footer">
                     <button id="saveGitButton" class="btn btn-info pull-right">Speichern</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Beschreibungen -->
+<div id="newDescModal" class="model-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button id="closeNewDescModal" type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title">Neue Beschreibung hinzufügen</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">Text</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="descText"
+                                   placeholder="Text" required="required"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button class="btn btn-info pull-right" id="saveNewDesc">Hinzufügen</button>
                 </div>
             </div>
         </div>
