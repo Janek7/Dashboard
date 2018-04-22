@@ -77,7 +77,7 @@ if ($project->getGitClient() == "Github") {
             <!-- State Box -->
             <div class="col-md-4">
                 <div class="info-box">
-                <span id="stateColor" class="info-box-icon"><i
+                <span id="stateColor" class="info-box-icon bg-teal-gradient"><i
                             class="fa fa-spinner"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Status</span>
@@ -260,7 +260,7 @@ if ($project->getGitClient() == "Github") {
                 <h3 class="box-title">Aktionen</h3>
             </div>
             <div class="box-body text-center">
-                <a class="btn btn-app" id="changeStateButton"><i class="fa fa-spinner"></i>Status</a>
+                <a class="btn btn-app bg-teal" id="changeStateButton"><i class="fa fa-spinner"></i>Status</a>
                 <a class="btn btn-app" id="changeTitleButton"><i class="fa fa-edit"></i>Titel</a>
                 <a class="btn btn-app bg-green" id="workstepButton"><i class="fa fa-wrench"></i>Arbeitsschritt</a>
                 <a class="btn btn-app bg-aqua" id="gitButton"><i class="fa fa-code-fork"></i>Git</a>

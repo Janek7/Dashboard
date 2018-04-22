@@ -32,6 +32,7 @@ logLastActivity($page);
     <link rel="stylesheet" href="adminlte/bower_components/Ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="adminlte/dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="adminlte/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="adminlte/bower_components/morris.js/morris.css">
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -122,10 +123,8 @@ logLastActivity($page);
                         </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="index.php?page=codingProjects"><i class="fa fa-table"></i>Projekte</a></li>
-                            <li><a target="_blank" href="https://github.com/Janek7"><i
-                                            class="fa fa-code-fork"></i>Git</a>
-                            </li>
+                            <li><a href="index.php?page=codingMain"><i class="fa fa-info"></i>Übersicht</a></li>
+                            <li><a href="index.php?page=codingTimeline"><i class="fa fa-calendar"></i>Timeline</a></li>
                         </ul>
                     </li>
                 <?php endif; ?>
