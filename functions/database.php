@@ -8,8 +8,10 @@
 
 if (file_exists("index.php")) {
     require 'config.php';
-} else {
+} elseif (file_exists("../index.php")) {
     require '../config.php';
+} elseif (file_exists("../../index.php")) {
+    require '../../config.php';
 }
 global $configuration;
 

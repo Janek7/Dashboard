@@ -6,8 +6,8 @@
  * Time: 23:21
  */
 
-require '../entities/CodingProject.php';
-require 'database.php';
+require '../../entities/CodingProject.php';
+require '../database.php';
 global $conn;
 global $codingProjects;
 

@@ -6,7 +6,7 @@
  * Time: 21:09
  */
 
-require 'database.php';
+require '../database.php';
 global $conn;
 
 if (isset($_GET['projectid'])) {
@@ -37,7 +37,7 @@ if (isset($_GET['projectid'])) {
     }
     $sqlUpdateGit .= "WHERE id = '$projectId'";
     $conn->query($sqlUpdateGit);
-    header("Location: ../index.php?page=codingProject&project=" . $_GET['projecttitle']);
+    header("Location: ../../index.php?page=codingProject&project=" . $_GET['projecttitle']);
 } else {
     echo "error, kein Projekt angegeben";
 }

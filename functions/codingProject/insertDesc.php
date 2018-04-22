@@ -6,7 +6,7 @@
  * Time: 14:34
  */
 
-require 'database.php';
+require '../database.php';
 global $conn;
 
 $descText = $_GET['descText'];

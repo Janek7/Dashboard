@@ -6,7 +6,7 @@
  * Time: 18:19
  */
 
-require 'database.php';
+require '../database.php';
 global $conn;
 
 $projectTitle = $_POST['projectTitle'];
@@ -25,4 +25,4 @@ if (isset($workstepText) && isset($startDate) && isset($endDate)) {
     echo "error, ungültige Parameter";
 }
 
-header("Location: ../index.php?page=codingProject&project=$projectTitle");
+header("Location: ../../index.php?page=codingProject&project=$projectTitle");

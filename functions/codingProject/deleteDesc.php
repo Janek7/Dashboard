@@ -6,7 +6,7 @@
  * Time: 14:12
  */
 
-require 'database.php';
+require '../database.php';
 global $conn;
 
 $descid = $_GET['descid'];

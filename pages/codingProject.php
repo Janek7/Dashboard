@@ -361,7 +361,7 @@ if ($project->getGitClient() == "Github") {
             <h4 class="modal-title">Projekt löschen</h4>
         </div>
         <div class="modal-body">
-            <form action="functions/deleteCodingProject.php" class="form-horizontal">
+            <form action="functions/codingProject/deleteCodingProject.php" class="form-horizontal">
                 <div class="box-body">
                     <p>Bist du dir sicher, dass du das Projekt <b>löschen</b> willst?</p>
                     <input id="dummieInput" name="projectid" value="<?php echo $project->getId(); ?>"/>
@@ -386,7 +386,7 @@ if ($project->getGitClient() == "Github") {
             <h4 class="modal-title">Neuen Arbeitsschritt anlegen</h4>
         </div>
         <div class="modal-body">
-            <form class="form-horizontal" action="functions/insertCodingWorkstep.php" method="post">
+            <form class="form-horizontal" action="functions/codingProject/insertCodingWorkstep.php" method="post">
                 <div class="box-body">
                     <input type="hidden" class="form-control" name="projectTitle"
                            value="<?php echo $project->getTitle(); ?>"/>

@@ -6,7 +6,7 @@
  * Time: 00:21
  */
 
-require 'database.php';
+require '../database.php';
 global $conn;
 $projectid = $_GET['projectid'];
 

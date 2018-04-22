@@ -8,7 +8,7 @@ $(".descEditBtn").click(function () {
 
 $(".descRemoveBtn").click(function () {
     var descid = this.dataset['descid'];
-    var phpcall = "functions/deleteDesc.php?descid=" + descid;
+    var phpcall = "functions/codingProject/deleteDesc.php?descid=" + descid;
     $.get(phpcall, function () {
         var desc = $("#desc" + descid);
         var descText = desc.text();
@@ -30,7 +30,7 @@ $("#closeNewDescModal").click(function () {
 $("#saveNewDesc").click(function () {
     var textVal = $("#descText").val();
     if (textVal != "") {
-        var phpcall = "functions/insertDesc.php?projectId=" + $("#project").data("id") + "&descText=" + textVal;
+        var phpcall = "functions/codingProject/insertDesc.php?projectId=" + $("#project").data("id") + "&descText=" + textVal;
         $.get(phpcall, function (data, status) {
             var json = JSON.parse(data);
             var newElement = "<li id='desc" + json['id'] + "'>" + json['text'] + "<span class='pull-right'>" +
@@ -70,7 +70,7 @@ $("#saveGitButton").click(function () {
     var clientValue = $("#gitclient").val();
     var repoNameValue = $("#repoNameInput").val();
     var repoLinkValue = $("#repoLinkInput").val();
-    var phpcall = "functions/updateGitData.php?projectid=" + gitModal.data("projectid") + "&projecttitle="
+    var phpcall = "functions/codingProject/updateGitData.php?projectid=" + gitModal.data("projectid") + "&projecttitle="
         + gitModal.data("projecttitle") + "&";
     var basicPhpcall = phpcall;
     if (clientValue != gitModal.data("gitclient")) {
@@ -113,7 +113,8 @@ $("#saveChangeStateModalButton").click(function () {
     var newstate = $("#stateInput").val();
     var project = $("#project");
     if (newstate != project.data('state')) {
-        var phpcall = "functions/changeCodingProjectState.php?newstate=" + newstate + "&projectid=" + project.data('id');
+        var phpcall = "functions/codingProject/changeCodingProjectState.php?newstate=" + newstate + "&projectid="
+            + project.data('id');
         alert(phpcall);
         $.get(phpcall, function (data, status) {
             $("#successAlertText").html("Der Status des Projekts wurde erfolgreich zu " + newstate + " geändert");
@@ -146,7 +147,8 @@ $("#saveChangeTitleModalButton").click(function () {
     var newtitle = $("#titleInput").val();
     var project = $("#project");
     if (newtitle != project.data('title')) {
-        var phpcall = "functions/changeCodingProjectTitle.php?newtitle=" + newtitle + "&projectid=" + project.data('id');
+        var phpcall = "functions/codingProject/changeCodingProjectTitle.php?newtitle=" + newtitle + "&projectid="
+            + project.data('id');
         $.get(phpcall, function (data, status) {
             $("#header").html(newtitle);
             $("#navText").html(newtitle);

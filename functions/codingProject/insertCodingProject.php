@@ -6,7 +6,7 @@
  * Time: 15:29
  */
 
-require 'database.php';
+require '../database.php';
 global $conn;
 session_start();
 $userid = $_SESSION['userid'];
@@ -42,4 +42,4 @@ foreach ($languages as $language) {
     $conn->query($sqlInsertLanguage);
 }
 
-header("Location: ../index.php?page=codingProjects&project=$title");
+header("Location: ../../index.php?page=codingProjects&project=$title");
