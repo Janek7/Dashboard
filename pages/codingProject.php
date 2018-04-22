@@ -55,7 +55,7 @@ if ($project->getGitClient() == "Github") {
             <!-- ID Box -->
             <div class="col-md-4">
                 <div class="info-box">
-                    <span class="info-box-icon bg-aqua"><i class="fa fa-bookmark-o"></i></span>
+                    <span class="info-box-icon bg-red-gradient"><i class="fa fa-bookmark-o"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">ID</span>
                         <span class="info-box-number"><?php echo $project->getId(); ?></span>
@@ -65,7 +65,7 @@ if ($project->getGitClient() == "Github") {
             <!-- Date Box -->
             <div class="col-md-4">
                 <div class="info-box">
-                    <span class="info-box-icon bg-green"><i class="fa fa-calendar"></i></span>
+                    <span class="info-box-icon bg-yellow-gradient"><i class="fa fa-calendar"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Projektstart</span>
                         <span class="info-box-number">
@@ -77,7 +77,7 @@ if ($project->getGitClient() == "Github") {
             <!-- State Box -->
             <div class="col-md-4">
                 <div class="info-box">
-                <span id="stateColor" class="info-box-icon bg-<?php echo $project->getStateColor() ?>"><i
+                <span id="stateColor" class="info-box-icon"><i
                             class="fa fa-spinner"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Status</span>
@@ -88,22 +88,10 @@ if ($project->getGitClient() == "Github") {
         </div>
 
         <div class="row">
-            <!-- Time Box -->
-            <div class="col-md-4">
-                <div class="info-box">
-                    <span class="info-box-icon bg-blue-active"><i class="fa fa-clock-o"></i></span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">Entwicklungszeit</span>
-                        <span class="info-box-number">
-                        <?php echo $project->getTime(); ?>
-                    </span>
-                    </div>
-                </div>
-            </div>
             <!-- Workstep Box -->
             <div class="col-md-4">
                 <div class="info-box">
-                    <span class="info-box-icon" id="workstepBox"><i class="fa fa-wrench"></i></span>
+                    <span class="info-box-icon bg-green-gradient" id="workstepBox"><i class="fa fa-wrench"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Arbeitsschritte</span>
                         <span class="info-box-number">
@@ -112,10 +100,22 @@ if ($project->getGitClient() == "Github") {
                     </div>
                 </div>
             </div>
+            <!-- Time Box -->
+            <div class="col-md-4">
+                <div class="info-box">
+                    <span class="info-box-icon bg-blue-gradient"><i class="fa fa-clock-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Entwicklungszeit</span>
+                        <span class="info-box-number">
+                        <?php echo $project->getTime(); ?>
+                    </span>
+                    </div>
+                </div>
+            </div>
             <!-- Commit Box -->
             <div class="col-md-4">
                 <div class="info-box">
-                    <span class="info-box-icon bg-aqua"><i class="fa fa-code"></i></span>
+                    <span class="info-box-icon bg-aqua-gradient"><i class="fa fa-code"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Commits</span>
                         <span class="info-box-number"><?php echo $commitList ? count($commitList)
@@ -129,7 +129,7 @@ if ($project->getGitClient() == "Github") {
         <div class="row">
             <!-- Language Box -->
             <div class="col-md-3">
-                <div class="box box-warning languageLabelBox">
+                <div class="box box- languageLabelBox box-warning">
                     <div class="box-header with-border">
                         <h3 class="box-title">Sprachen</h3>
                         <div class="box-tools pull-right">
@@ -261,9 +261,9 @@ if ($project->getGitClient() == "Github") {
             </div>
             <div class="box-body text-center">
                 <a class="btn btn-app" id="changeStateButton"><i class="fa fa-spinner"></i>Status</a>
-                <a class="btn btn-app " id="workstepButton"><i class="fa fa-wrench"></i>Arbeitsschritt</a>
-                <a class="btn btn-app bg-aqua" id="gitButton"><i class="fa fa-code-fork"></i>Git</a>
                 <a class="btn btn-app" id="changeTitleButton"><i class="fa fa-edit"></i>Titel</a>
+                <a class="btn btn-app bg-green" id="workstepButton"><i class="fa fa-wrench"></i>Arbeitsschritt</a>
+                <a class="btn btn-app bg-aqua" id="gitButton"><i class="fa fa-code-fork"></i>Git</a>
                 <a class="btn btn-app bg-orange" id="languageButton"><i class="fa fa-code"></i>Sprachen</a>
                 <a class="btn btn-app bg-blue" id="addDescButton"><i class="fa fa-edit"></i>Beschreibung</a>
                 <a class="btn btn-app" id="deleteButton"><i class="fa fa-ban"></i>Löschen</a>

@@ -4,8 +4,8 @@
 }
 
 #changeStateButton {
-    background-color: #096d0d;
-    color: white;
+    background-color: lightgrey;
+    color: black;
 }
 
 #changeTitleButton {
@@ -15,15 +15,6 @@
 
 #gitButton {
     color: black;
-}
-
-#workstepButton {
-    background-color: #337AB7;;
-    color: white;
-}
-
-#workstepBox {
-    background-color: #337AB7;
 }
 
 .descBox li {
