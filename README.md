@@ -5,10 +5,10 @@
 + languages: PHP, HTML, CSS and JavaScript (with JQuery)
 
 ##Coding Projects
-+ timeline with general information
-![coding timeline](https://i.imgur.com/38bd9Nf.png)
+timeline with general information
+![coding timeline](https://i.imgur.com/38bd9Nf.png =100x20)
 
-+ specific page for each project with detailed information
+specific page for each project with detailed information
 ![coding project](https://i.imgur.com/M9sPztH.png)
 
 ##Installation on a Webserver:
