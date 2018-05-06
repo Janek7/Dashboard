@@ -72,8 +72,8 @@ $closedProjects = intval($row['closed']);
             <div class="col-md-6">
                 <div class="small-box bg-teal-gradient">
                     <div class="inner">
-                        <h3>Create</h3>
-                        <p>a new Project</p>
+                        <h3>Projekt</h3>
+                        <p>neu erstellen</p>
                     </div>
                     <div class="icon">
                         <i id="gitIcon" class="fa fa-plus"></i>
@@ -205,6 +205,7 @@ $closedProjects = intval($row['closed']);
                                 <option value="5">PHP</option>
                                 <option value="6">Python</option>
                                 <option value="7">Groovy</option>
+                                <option value="8">TypeScript</option>
                             </select>
                         </div>
                     </div>
@@ -219,6 +220,7 @@ $closedProjects = intval($row['closed']);
                                 <option value="5">PHP</option>
                                 <option value="6">Python</option>
                                 <option value="7">Groovy</option>
+                                <option value="8">TypeScript</option>
                             </select>
                         </div>
                     </div>

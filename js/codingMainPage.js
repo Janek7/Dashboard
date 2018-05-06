@@ -18,7 +18,7 @@ $(document).ready(function () {
             element: 'languageDonut',
             data: JSON.parse(data),
             resize: true,
-            colors: ['#d69700', '#af5500', '#09cd32','#d8cd00', '#4233a2', '#0060A2']
+            colors: ['#d69700', '#af5500', '#09cd32','#d8cd00', '#4233a2', '#003e75', '#0060A2']
         });
 
     });

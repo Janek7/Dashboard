@@ -16,9 +16,10 @@ $languageLabelColors = [
     "HTML" => "bg-orange",
     "CSS" => "bg-green",
     "JavaScript" => "bg-yellow",
-    "Python" => "bg-blue",
+    "Python" => "bg-blue-active",
     "PHP" => "bg-purple",
-    "Groovy" => "bg-brown"
+    "Groovy" => "bg-brown",
+    "TypeScript" => "bg-blue"
 ];
 
 $userid = $_SESSION['userid'];
