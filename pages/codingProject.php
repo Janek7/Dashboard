@@ -31,14 +31,16 @@ if (!$project) : ?>
 endif;
 
 $commitList = null;
+//Commits von github api
+set_error_handler(function() { /* ignore errors */ });
 if ($project->getGitClient() == "Github") {
-    //Commits von github api
     $httpRequest = "https://api.github.com/repos/Janek7/" . $project->getGitRepoName() . "/commits";
     $options = array('http' => array('user_agent' => $_SERVER['HTTP_USER_AGENT']));
     $context = stream_context_create($options);
     $response = file_get_contents($httpRequest, false, $context);
     $commitList = json_decode($response, true);
 }
+restore_error_handler();
 ?>
 
 <!-- Dummie Element mit Projekt Infos für Zugriff aus JQuery -->
@@ -119,7 +121,7 @@ if ($project->getGitClient() == "Github") {
                     <div class="info-box-content">
                         <span class="info-box-text">Commits</span>
                         <span class="info-box-number"><?php echo $commitList ? count($commitList)
-                                : "Momentan leider nur bei Github :/"; ?></span>
+                                : "Konnten nicht abgerufen werden :/"; ?></span>
                     </div>
                 </div>
             </div>
@@ -163,9 +165,9 @@ if ($project->getGitClient() == "Github") {
                                 //Mit Tabelle lösen
                                 echo "<li id='desc" . $id . "'>" . $text;
                                 echo "<span class='pull-right'>";
-                                echo "<button class='btn btn-xs descEditBtn' data-descid=\"" . $id  . "\">
+                                echo "<button class='btn btn-xs descEditBtn' data-descid=\"" . $id . "\">
                                         <i class='fa fa-pencil'></i></button>";
-                                echo "<button class='btn btn-xs descRemoveBtn' data-descid=\"" . $id  . "\">
+                                echo "<button class='btn btn-xs descRemoveBtn' data-descid=\"" . $id . "\">
                                         <i class='fa fa-ban'></i></button>";
                                 echo "</span>";
                                 echo "</li>";
@@ -225,27 +227,32 @@ if ($project->getGitClient() == "Github") {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table class="table table-bordered">
-                            <tbody>
-                            <tr>
-                                <th>ID</th>
-                                <th>Commit Message</th>
-                                <th>Datum</th>
-                            </tr>
-                            <?php
-                            foreach ($commitList as $commit) {
-                                echo "<tr>";
-                                echo "<td><a target='_blank' href='" . $commit['html_url'] . "'>"
-                                    . substr($commit['sha'], 0, 7) . "...</a></td>";
-                                echo "<td>" . $commit['commit']['message'] . "</td>";
-                                $dateString = str_replace("T", " ", $commit['commit']['author']['date']);
-                                $dateString = str_replace("Z", " ", $dateString);
-                                echo "<td>" . $dateString . "</td>";
-                                echo "</tr>";
-                            }
-                            ?>
-                            </tbody>
-                        </table>
+                        <?php if ($commitList) : ?>
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Commit Message</th>
+                                    <th>Datum</th>
+                                </tr>
+                                <?php
+                                foreach ($commitList as $commit) {
+                                    echo "<tr>";
+                                    echo "<td><a target='_blank' href='" . $commit['html_url'] . "'>"
+                                        . substr($commit['sha'], 0, 7) . "...</a></td>";
+                                    echo "<td>" . $commit['commit']['message'] . "</td>";
+                                    $dateString = str_replace("T", " ", $commit['commit']['author']['date']);
+                                    $dateString = str_replace("Z", " ", $dateString);
+                                    echo "<td>" . $dateString . "</td>";
+                                    echo "</tr>";
+                                }
+
+                                ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <p>Commits konnten nicht abgerufen werden</p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

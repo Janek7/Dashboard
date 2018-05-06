@@ -42,4 +42,4 @@ foreach ($languages as $language) {
     $conn->query($sqlInsertLanguage);
 }
 
-header("Location: ../../index.php?page=codingProjects&project=$title");
+header("Location: ../../index.php?page=codingProject&project=$title");

@@ -5,10 +5,11 @@
 + languages: PHP, HTML, CSS and JavaScript (with JQuery)
 
 ## Coding Projects
-timeline with general information <br/>
-<img src="https://i.imgur.com/38bd9Nf.png" height="400" width="800" alt="coding timeline">
+timeline with general information for each project <br/> <br/>
+<img src="https://i.imgur.com/Tg9BM3Z.png" height="300" width="300" alt="coding timeline">
+<img src="https://i.imgur.com/M9sPztH.png" height="300" width="600" alt="coding project">
 
-specific page for each project with detailed information <br/>
+specific page for each project with detailed information <br/> <br/>
 <img src="https://i.imgur.com/M9sPztH.png" height="400" width="800" alt="coding project">
 
 ## Installation on a Webserver:
