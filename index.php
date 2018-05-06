@@ -115,17 +115,11 @@ logLastActivity($page);
                 <li class="header">Menü</li>
 
                 <?php if ($user->hasPerm("2")) : ?>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-code"></i> <span>Proggen</span>
-                            <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
+                    <li>
+                        <a href="index.php?page=codingMain">
+                            <i class="fa fa-code"></i>
+                            <span>Proggen</span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li><a href="index.php?page=codingMain"><i class="fa fa-info"></i>Übersicht</a></li>
-                            <li><a href="index.php?page=codingTimeline"><i class="fa fa-calendar"></i>Timeline</a></li>
-                        </ul>
                     </li>
                 <?php endif; ?>
 

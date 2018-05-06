@@ -1,5 +1,15 @@
 'use strict';
 
+$("#newProject").click(function () {
+    $("#newProjectModal").css("display", "block");
+});
+
+$("#closeNewProjectModal").click(function () {
+    $("#newProjectModal").fadeOut();
+});
+
+$("#timeInterval").html("Zeitraum: " + $(".label-info:last").html() + " - heute");
+
 $(document).ready(function () {
     $.ajax({
         url : 'functions/codingMain/getLanguageDonut.php',
@@ -13,4 +23,3 @@ $(document).ready(function () {
 
     });
 });
-
