@@ -6,10 +6,10 @@
 
 ##Coding Projects
 timeline with general information
-![coding timeline](https://i.imgur.com/38bd9Nf.png =100x20)
+<img src="https://i.imgur.com/38bd9Nf.png" height="100" width="200" alt="coding timeline">
 
 specific page for each project with detailed information
-![coding project](https://i.imgur.com/M9sPztH.png)
+<img src="https://i.imgur.com/M9sPztH.png" height="100" width="200" alt="coding project">
 
 ##Installation on a Webserver:
 + clone project in your directory ``git clone https://github.com/Janek7/Dashboard.git``
