@@ -98,7 +98,7 @@ class CodingProject {
         return $this->title = $title;
     }
 
-    public function getStartDateObject(): DateTime {
+    public function getStartDateObject() {
         return $this->startDate;
     }
 
@@ -174,15 +174,15 @@ class CodingProject {
         return $this->state = $state;
     }
 
-    public function getDesc(): array {
+    public function getDesc() {
         return $this->desc;
     }
 
-    public function getLanguages(): array {
+    public function getLanguages() {
         return $this->languages;
     }
 
-    public function getLanguageLabels(): array {
+    public function getLanguageLabels() {
         global $languageLabelColors;
         $labels = [];
         foreach ($this->languages as $language) {
@@ -195,7 +195,7 @@ class CodingProject {
         return $this->mainLanguage;
     }
 
-    public function getWorkSteps(): array {
+    public function getWorkSteps() {
         return $this->workSteps;
     }
 

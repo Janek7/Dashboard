@@ -97,7 +97,7 @@ restore_error_handler();
                     <div class="info-box-content">
                         <span class="info-box-text">Arbeitsschritte</span>
                         <span class="info-box-number">
-                        <?php echo count($project->getWorkSteps()) ?>
+                        <?php echo count($project->getWorkSteps()); ?>
                     </span>
                     </div>
                 </div>

@@ -35,9 +35,7 @@ $closedProjects = intval($row['closed']);
                     <div class="icon">
                         <i id="gitIcon" class="fa fa-calendar"></i>
                     </div>
-                    <a id="gitRepoLink" href="index.php?page=codingTimeline" target="_blank"
-                       class="small-box-footer">Timeline <i class="fa fa-arrow-circle-right"></i>
-                    </a>
+                    <br/>
                 </div>
             </div>
             <!-- Dev Time Widget -->
@@ -45,7 +43,7 @@ $closedProjects = intval($row['closed']);
                 <div class="small-box bg-yellow-gradient">
                     <div class="inner">
                         <h3><?php echo $devTime; ?>+</h3>
-                        <p>Stunden Entwicklung</p>
+                        <p>Stunden Entwicklung (seit April)</p>
                     </div>
                     <div class="icon">
                         <i id="gitIcon" class="fa fa-clock-o"></i>
@@ -87,7 +85,7 @@ $closedProjects = intval($row['closed']);
                 <!-- Language Donut -->
                 <div class="box box-warning">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Häufigkeit der Sprachen</h3>
+                        <h3 class="box-title">Verwendung der Sprachen</h3>
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
                                         class="fa fa-minus"></i></button>
@@ -131,8 +129,8 @@ $closedProjects = intval($row['closed']);
                        href="<?php echo $project->getGitRepoLink(); ?>"><?php echo $project->getGitClient(); ?></a>
                 </span>
                             <h3 class="timeline-header">
-                                <a href="index.php?page=codingProject&project=<?php echo $project->getTitle(); ?>">
-                                    <?php echo $project->getTitle(); ?></a>
+                                <a href="index.php?page=codingProject&project=<?php echo $project->getTitle(); ?>"
+                                   target="_blank"><?php echo $project->getTitle(); ?></a>
                             </h3>
                             <div class="timeline-body">
                                 <p><b>Status: </b><?php echo $project->getStateLabel(); ?></p>
