@@ -1,7 +1,6 @@
 # Dashboard
 + logging and plotting of several data
 + user management and permission administration
-+ use of the [AdminLTE](https://adminlte.io/) template for control panels
 + languages: PHP, HTML, CSS and JavaScript (with JQuery)
 
 ## Coding Projects
@@ -18,3 +17,5 @@ A page for each project with detailed information <br/> <br/>
 + create a file named ``config.php`` in the root directory and fill with your customized data 
 structured like ``configExample.php``
 + run sql statements from ``database/table_scripts.sql`` on your mysql server
++ download and unzip the [AdminLTE 2.3.11](https://github.com/almasaeed2010/AdminLTE/releases/tag/v2.3.11) dashboard 
+template in a directory named ``adminlte`` in the root directory
