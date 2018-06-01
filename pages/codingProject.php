@@ -11,7 +11,7 @@ global $conn;
 $project = null;
 if (isset($_GET['project'])):
     $project = getProjectFromTitle($_GET['project']);
-else:?>
+elseif (!isset($_GET['project'])) : ?>
     <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4><i class="icon fa fa-ban"></i> Fehler!</h4>
@@ -24,11 +24,10 @@ if (!$project) : ?>
     <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4><i class="icon fa fa-ban"></i> Fehler!</h4>
-        Es existiert kein Projekt mit dem Titel <?php echo $_GET['project']; ?>
+        Du besitzt kein Projekt mit dem Titel <?php echo $_GET['project']; ?>
     </div>
     <?php
-    exit(0);
-endif;
+else:
 
 $commitList = null;
 //Commits von github api
@@ -515,3 +514,5 @@ restore_error_handler();
         </div>
     </div>
 </div>
+
+<?php endif; ?>

@@ -10,11 +10,12 @@ global $conn;
 global $languageLabelColors;
 global $codingProjects;
 $userid = $_SESSION['userid'];
-$months = [];
 
 $sqlGetProjectStats = "SELECT COUNT(*) as projects, SUM((SELECT ROUND(SUM(TIMESTAMPDIFF(MINUTE, start_date, end_date))/60) 
-FROM coding_worksteps WHERE project_id = cp.id)) as dev_time, SUM(IF(cp.state = 'closed', 1, 0)) as closed FROM coding_projects cp;";
+FROM coding_worksteps WHERE project_id = cp.id)) as dev_time, SUM(IF(cp.state = 'closed', 1, 0)) as closed 
+FROM coding_projects cp WHERE user_id = $userid;";
 
+$months = [];
 $projectStatsResult = $conn->query($sqlGetProjectStats);
 $row = $projectStatsResult->fetch_assoc();
 $projects = $row['projects'];
@@ -129,7 +130,7 @@ $closedProjects = intval($row['closed']);
                        href="<?php echo $project->getGitRepoLink(); ?>"><?php echo $project->getGitClient(); ?></a>
                 </span>
                             <h3 class="timeline-header">
-                                <a href="index.php?page=codingProject&project=<?php echo $project->getTitle(); ?>"
+                                <a href="coding/project/<?php echo $project->getTitle(); ?>"
                                    target="_blank"><?php echo $project->getTitle(); ?></a>
                             </h3>
                             <div class="timeline-body">

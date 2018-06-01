@@ -4,14 +4,11 @@ require "functions/utils.php";
 require 'entities/Page.php';
 require 'entities/User.php';
 require 'entities/Role.php';
-require 'entities/CodingProject.php';
+if (isset($_GET['page']))
+    if ($_GET['page'] == "codingMain" || $_GET['page'] == "codingProject") require 'entities/CodingProject.php';
 
-if (!isset($_SESSION['userid'])) {
-    header("Location: pages/login.php");
-}
-if ($_SESSION['verified'] == "0") {
-    header("Location: pages/unverified.php");
-}
+if (!isset($_SESSION['userid'])) header("Location: pages/login.php");
+if ($_SESSION['verified'] == "0") header("Location: pages/unverified.php");
 
 $user = getUser();
 $page = getPage($user);
@@ -49,7 +46,7 @@ logLastActivity($page);
 <div class="wrapper">
     <header class="main-header">
         <!-- Logo -->
-        <a href="index.php?page=main" class="logo">
+        <a href="start" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>D</b></span>
             <!-- logo for regular state and mobile devices -->
@@ -116,7 +113,7 @@ logLastActivity($page);
 
                 <?php if ($user->hasPerm("2")) : ?>
                     <li>
-                        <a href="index.php?page=codingMain">
+                        <a href="coding">
                             <i class="fa fa-code"></i>
                             <span>Proggen</span>
                         </a>
@@ -172,7 +169,7 @@ logLastActivity($page);
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a target="_blank" href="https://janek7.github.io/Minesweeper/index.html"><i
+                        <li><a target="_blank" href="http://minesweeper.janek.me/"><i
                                         class="fa fa-bomb"></i>Minesweeper</a>
                         </li>
                     </ul>
@@ -188,7 +185,7 @@ logLastActivity($page);
                         </a>
                         <ul class="treeview-menu">
                             <li>
-                                <a href="index.php?page=userManagement"><i class="fa fa-users"></i>Nutzer Verwaltung</a>
+                                <a href="user"><i class="fa fa-users"></i>Nutzer Verwaltung</a>
                             </li>
                         </ul>
                     </li>
@@ -214,7 +211,7 @@ logLastActivity($page);
                 ?>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="index.php"><i class="fa fa-dashboard"></i>Home</a></li>
+                <li><a href="start"><i class="fa fa-dashboard"></i>Home</a></li>
                 <li class="active" id="navText"><?php echo $page->getNavText() ?></li>
             </ol>
         </section>
@@ -233,7 +230,7 @@ logLastActivity($page);
         <div class="pull-right hidden-xs">
             <b>Version</b> 1.0
         </div>
-        <strong>Copyright &copy; 2018 <a href="https://github.com/Janek7">Janek</a>.</strong> All rights
+        <strong>Copyright &copy; 2018 <a target="_blank" href="https://github.com/Janek7">Janek</a>.</strong> All rights
         reserved.
     </footer>
     <!-- ./wrapper -->
