@@ -44,7 +44,8 @@ function getUser() {
 function logLastActivity($page) {
     $userid = $_SESSION['userid'];
     $lastPage = $page->getNavText();
-    $sql = "UPDATE users SET last_page = '$lastPage', last_activity = CURRENT_TIMESTAMP() WHERE id = '$userid'";
+    $sql = "UPDATE users SET last_page = '$lastPage', last_activity = CURRENT_TIMESTAMP(),
+            viewed_pages = viewed_pages + 1, WHERE id = '$userid'";
     global $conn;
     $conn->query($sql);
 }

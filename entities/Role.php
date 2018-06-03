@@ -56,6 +56,7 @@ class Role {
 }
 
 function getRoleFromId($id) {
+
     global $roles;
     foreach ($roles as $role) {
         if ($id == $role->getId()) {
@@ -63,4 +64,5 @@ function getRoleFromId($id) {
         }
     }
     return null;
+
 }

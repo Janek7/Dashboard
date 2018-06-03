@@ -30,11 +30,14 @@ if ($lr) {
         $sql = "SELECT id, password, verified FROM users WHERE name = '$user'";
         $userResult = $conn->query($sql);
         if ($result = $userResult->fetch_assoc()) {
+            echo $password . " " . $result['password'];
             if (password_verify($password, $result['password'])) {
                 $_SESSION['userid'] = $result['id'];
                 $_SESSION['username'] = $user;
                 $_SESSION['verified'] = $result['verified'];
-                header("Location: ../index.php");
+                $sqlUpdateString = "UPDATE users SET logins = logins + 1 WHERE id = '" . $result['id'] . "';";
+                $conn->query($sqlUpdateString);
+                header("Location: start");
             } else {
                 array_push($errors, "Das Passwort ist falsch!");
             }
@@ -87,7 +90,7 @@ if ($lr) {
     <div class="login-box-body">
         <p class="login-box-msg">Melde dich an um zu starten</p>
 
-        <form action="login.php" method="post">
+        <form action="login" method="post">
             <div class="form-group has-feedback">
                 <input name="userInput" type="text" class="form-control" placeholder="Name"
                     <?php if ($lr && isset($_POST['userInput'])) echo "value=\"" . $_POST['userInput'] . "\"" ?>>
@@ -123,7 +126,7 @@ if ($lr) {
         </form>
 
         <a id="forgotPW">Passwort vergessen</a><br>
-        <a href="<?php if (!$f) echo "pages/" ?>register.php" class="text-center">Registrieren</a>
+        <a href="<?php if (!$f) echo "pages/" ?>register" class="text-center">Registrieren</a>
 
     </div>
     <!-- /.login-box-body -->

@@ -15,7 +15,7 @@ if (isset($_GET['project'])) {
 
 $pages = [
     'main' => new Page("Startseite", "Willkommen im Dashboard", "main",
-        null, "", ""),
+        null, "", "<script src=\"js/mainPage.js\"></script>"),
     'error' => new Page("Error", "Seite nicht gefunden :/", "error",
         null, "", ""),
     'test' => new Page("Test", "Nur zum Testen", "test", null,

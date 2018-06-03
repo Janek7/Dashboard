@@ -1,6 +1,9 @@
 RewriteEngine On
 
-RewriteRule ^start$ /index.php?page=main [L]
+RewriteRule ^login$ /pages/login.php [L]
+RewriteRule ^register$ /pages/register.php [L]
+RewriteRule ^unverified$ /pages/unverified.php [L]
+RewriteRule ^main$ /index.php?page=main [L]
 RewriteRule ^coding$ /index.php?page=codingMain [L]
 RewriteRule ^coding/project/(.+)$ /index.php?page=codingProject&project=$1 [L]
 RewriteRule ^user$ /index.php?page=userManagement [L]

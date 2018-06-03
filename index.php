@@ -7,16 +7,16 @@ require 'entities/Role.php';
 if (isset($_GET['page']))
     if ($_GET['page'] == "codingMain" || $_GET['page'] == "codingProject") require 'entities/CodingProject.php';
 
-if (!isset($_SESSION['userid'])) header("Location: pages/login.php");
-if ($_SESSION['verified'] == "0") header("Location: pages/unverified.php");
+if (!isset($_SESSION['userid'])) header("Location: login");
+if ($_SESSION['verified'] == "0") header("Location: unverified");
 
+global $user;
 $user = getUser();
 $page = getPage($user);
 logLastActivity($page);
 ?>
 
 <!DOCTYPE html>
-<!-- Teeeest-->
 <html>
 <head>
     <meta charset="utf-8">
@@ -75,10 +75,12 @@ logLastActivity($page);
                                 <img src="adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                                 <p>
                                     <?php
-                                    echo $user->getName() . " - ";
-                                    /*foreach ($user->getRoles() as $role) {
-                                        echo $role . ", ";
-                                    }*/
+                                    $roleString = "Rollen: ";
+                                    global $roles;
+                                    foreach ($roles as $role) {
+                                        if ($user->hasRole($role->getId())) $roleString .= $role->getName() . ", ";
+                                    }
+                                    echo substr($roleString, 0, strlen($roleString) - 2);
                                     ?>
                                 </p>
                             </li>
@@ -111,70 +113,6 @@ logLastActivity($page);
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">Menü</li>
 
-                <?php if ($user->hasPerm("2")) : ?>
-                    <li>
-                        <a href="coding">
-                            <i class="fa fa-code"></i>
-                            <span>Proggen</span>
-                        </a>
-                    </li>
-                <?php endif; ?>
-
-                <li>
-                    <a href="">
-                        <i class="fa fa-book"></i>
-                        <span>Hochschule</span>
-                    </a>
-                </li>
-
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-car"></i> <span>Fahrten</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href=""><i class="fa fa-calendar"></i>Timeline</a></li>
-                        <li><a href=""><i class="fa fa-train"></i>Zug</a></li>
-                        <li><a href=""><i class="fa fa-subway"></i>S-Bahn / Bus</a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="#">
-                        <i class="fa fa-sticky-note"></i>
-                        <span>Notizen</span>
-                        <span class="pull-right-container">
-                            <span class="label label-primary pull-right">4</span>
-                        </span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#">
-                        <i class="fa fa-check-square-o"></i>
-                        <span>Todo</span>
-                        <span class="pull-right-container">
-                            <span class="label label-warning pull-right">2</span>
-                        </span>
-                    </a>
-                </li>
-
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-gamepad"></i> <span>Minigames</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a target="_blank" href="http://minesweeper.janek.me/"><i
-                                        class="fa fa-bomb"></i>Minesweeper</a>
-                        </li>
-                    </ul>
-                </li>
-
                 <?php if ($user->hasPerm("4")) : ?>
                     <li class="treeview">
                         <a href="#">
@@ -190,6 +128,88 @@ logLastActivity($page);
                         </ul>
                     </li>
                 <?php endif; ?>
+
+                <?php if ($user->hasPerm("1")) : ?>
+                    <li>
+                        <a href="">
+                            <i class="fa fa-graduation-cap"></i>
+                            <span>Hochschule</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if ($user->hasPerm("2")) : ?>
+                    <li>
+                        <a href="coding">
+                            <i class="fa fa-code"></i>
+                            <span>Coding</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if ($user->hasPerm("5")) : ?>
+                    <li>
+                        <a href="">
+                            <i class="fa fa-cube"></i>
+                            <span>Schreiner</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if ($user->hasPerm("3")) : ?>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-car"></i> <span>Fahrten</span>
+                            <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href=""><i class="fa fa-calendar"></i>Timeline</a></li>
+                            <li><a href=""><i class="fa fa-train"></i>Zug</a></li>
+                            <li><a href=""><i class="fa fa-subway"></i>S-Bahn / Bus</a></li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+
+                <!--
+                <?php if ($user->hasPerm("4")) : ?>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-sticky-note"></i>
+                            <span>Notizen</span>
+                            <span class="pull-right-container">
+                            <span class="label label-primary pull-right">4</span>
+                        </span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-check-square-o"></i>
+                            <span>Todo</span>
+                            <span class="pull-right-container">
+                            <span class="label label-warning pull-right">2</span>
+                        </span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+                -->
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-gamepad"></i> <span>Minigames</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a target="_blank" href="http://minesweeper.janek.me/"><i class="fa fa-bomb"></i>Minesweeper</a>
+                        </li>
+                        <li><a target="_blank" href="http://2048.janek.me/"><i class="fa fa-th-large"></i>2048</a>
+                        </li>
+                    </ul>
+                </li>
 
                 <li class="treeview">
                     <a href="#">
@@ -239,6 +259,7 @@ logLastActivity($page);
 
     <!-- Eigene JS Scripts -->
     <script src="js/indexPage.js"></script>
+    <!-- Extra Scripts -->
     <?php echo $page->getExtraJSScripts() ?>
 
     <!-- jQuery 3 -->

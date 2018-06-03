@@ -9,7 +9,10 @@ CREATE TABLE users
     verified_by INTEGER,
     verify_date TIMESTAMP,
     last_page VARCHAR(50),
-    last_activity TIMESTAMP
+    last_activity TIMESTAMP,
+    logins INT DEFAULT 0,
+    viewed_pages INT DEFAULT 0,
+    icon VARCHAR(1000)
 );
 
 

@@ -106,7 +106,7 @@ if ($rr) {
 
     <div class="register-box-body">
         <p class="login-box-msg">Erstelle einen neuen Account</p>
-        <form action="register.php" method="post">
+        <form action="register" method="post">
             <div class="form-group has-feedback">
                 <input name="userInput" type="text" class="form-control" placeholder="Name"
                     <?php if ($rr && isset($_POST['userInput'])) echo "value=\"" . $_POST['userInput'] . "\"" ?>>
@@ -145,7 +145,7 @@ if ($rr) {
             </div>
         </form>
         <br/>
-        <a href="login.php" class="text-center">Ich habe bereits einen Account</a>
+        <a href="login" class="text-center">Ich habe bereits einen Account</a>
     </div>
     <!-- /.form-box -->
 </div>

@@ -46,6 +46,9 @@ class User {
     private $verifyDate;
     private $lastActivity;
     private $lastPage;
+    private $icon;
+    private $logins;
+    private $viewedPages;
     private $perms;
     private $roles;
 
@@ -62,6 +65,9 @@ class User {
         $this->lastActivity = new DateTime();
         $this->lastActivity->setTimestamp(strtotime($row['last_activity']));
         $this->lastPage = $row['last_page'];
+        $this->icon = $row['icon'];
+        $this->logins = $row['logins'];
+        $this->viewedPages = $row['viewed_pages'];
         $this->perms = [];
         $this->roles = [];
     }
@@ -100,6 +106,18 @@ class User {
 
     public function getLastPage() {
         return $this->lastPage;
+    }
+
+    public function getIcon() {
+        return $this->icon ? $this->icon : "images/user.png";
+    }
+
+    public function getLogins() {
+        return $this->logins;
+    }
+
+    public function getViewedPages() {
+        return $this->viewedPages;
     }
 
 

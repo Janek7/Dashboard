@@ -16,7 +16,7 @@ if (isset($_POST['check_verify'])) {
     $row = $verifiedResult->fetch_assoc();
     if ($row['verified'] == 1) {
         $_SESSION['verified'] = 1;
-        header("Location: ../index.php");
+        header("Location: start");
     }
 }
 
