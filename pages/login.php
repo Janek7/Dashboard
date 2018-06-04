@@ -45,7 +45,6 @@ if ($lr) {
             array_push($errors, "Es existiert kein User mit dem Name '$user'!");
         }
     }
-
 }
 ?>
 
@@ -90,7 +89,7 @@ if ($lr) {
     <div class="login-box-body">
         <p class="login-box-msg">Melde dich an um zu starten</p>
 
-        <form action="login" method="post">
+        <form action="../login" method="post">
             <div class="form-group has-feedback">
                 <input name="userInput" type="text" class="form-control" placeholder="Name"
                     <?php if ($lr && isset($_POST['userInput'])) echo "value=\"" . $_POST['userInput'] . "\"" ?>>
