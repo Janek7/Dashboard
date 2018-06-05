@@ -9,7 +9,7 @@ global $user;
             <div class="info-box">
                 <span class="info-box-icon bg-yellow-gradient"><i class="fa fa-bookmark-o"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">ID</span>
+                    <span class="info-box-text">User ID</span>
                     <span class="info-box-number"><?php echo $user->getId(); ?></span>
                 </div>
             </div>
@@ -70,7 +70,7 @@ global $user;
                 <h3 class="box-title">Aktionen</h3>
             </div>
             <div class="box-body text-center">
-                <a class="btn btn-app bg-teal" id="changeStateButton"><i class="fa fa-spinner"></i>Test</a>
+                <a class="btn btn-app bg-teal" id="testButton"><i class="fa fa-spinner"></i>Test</a>
                 <!--
                 <a class="btn btn-app" id="changeTitleButton"><i class="fa fa-edit"></i>Titel</a>
                 <a class="btn btn-app bg-green" id="workstepButton"><i class="fa fa-wrench"></i>Arbeitsschritt</a>
@@ -111,7 +111,7 @@ global $user;
                     <div class="form-group">
                         <label for="userImageLink" class="col-sm-2 control-label">Bild</label>
                         <div class="col-sm-10">
-                            <input id="userImageLink" name="userImageLink" type="text" required="required"
+                            <input id="userImageLink" name="userImageLink" type="text" required="required" class="col-sm-6"
                                    value="<?php echo $user->getIcon() != "images/user.png" ? $user->getIcon() : ""; ?>"/>
                             <!--
                             <input type="hidden" name="MAX_FILE_SIZE" value=8000000" />
