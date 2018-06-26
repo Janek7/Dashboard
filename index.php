@@ -5,7 +5,7 @@ require 'entities/Page.php';
 require 'entities/User.php';
 require 'entities/Role.php';
 if (isset($_GET['page']))
-    if ($_GET['page'] == "codingMain" || $_GET['page'] == "codingProject") require 'entities/CodingProject.php';
+    if ($_GET['page'] == "coding" || $_GET['page'] == "codingProject") require 'entities/CodingProject.php';
 
 if (!isset($_SESSION['userid'])) header("Location: login");
 if ($_SESSION['verified'] == "0") header("Location: unverified");
@@ -140,7 +140,7 @@ logLastActivity($page);
 
                 <?php if ($user->hasPerm("2")) : ?>
                     <li>
-                        <a href="coding">
+                        <a href="codingoverview">
                             <i class="fa fa-code"></i>
                             <span>Coding</span>
                         </a>
@@ -212,7 +212,7 @@ logLastActivity($page);
                 </li>
 
                 <li class="treeview">
-                    <a href="#">
+                    <a href="changelog">
                         <i class="fa fa-file"></i>
                         <span>Changelog</span>
                     </a>

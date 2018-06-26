@@ -25,12 +25,14 @@ $pages = [
         "<script src=\"js/userManagementPage.js\"></script>"),
     'noperms' => new Page("Error", "Keine Berechtigungen :/", "noperms",
         null, "", ""),
-    'codingMain' => new Page("Coding", "generelle Übersicht", "codingMain",
-        "2", "<link rel=\"stylesheet\" href=\"css/codingMain.css\">",
-        "<script src=\"js/codingMainPage.js\"></script>"),
+    'coding' => new Page("Coding", "generelle Übersicht", "coding",
+        "2", "<link rel=\"stylesheet\" href=\"css/coding.css\">",
+        "<script src=\"js/codingPage.js\"></script>"),
     'codingProject' => new Page($ocdingProjectTitle, $codingProjectSmallTitle, "codingProject",
         "2", "<link rel=\"stylesheet\" href=\"css/codingProject.css\">",
-        "<script src=\"js/codingProjectPage.js\"></script>")
+        "<script src=\"js/codingProjectPage.js\"></script>"),
+    'changelog' => new Page("Changelog", "Übersicht zu Veränderungen", "changelog",
+        null, "", ""),
 ];
 
 class Page

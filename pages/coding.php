@@ -130,7 +130,8 @@ $closedProjects = intval($row['closed']);
                        href="<?php echo $project->getGitRepoLink(); ?>"><?php echo $project->getGitClient(); ?></a>
                 </span>
                             <h3 class="timeline-header">
-                                <a href="coding/project/<?php echo $project->getTitle(); ?>"
+                                <!--<a href="coding/project/<?php echo $project->getTitle(); ?>" -->
+                                <a href="index.php?page=codingProject&project=<?php echo $project->getTitle(); ?>"
                                    target="_blank"><?php echo $project->getTitle(); ?></a>
                             </h3>
                             <div class="timeline-body">
