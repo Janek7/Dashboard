@@ -1,0 +1,16 @@
+.added {
+    color: green;
+}
+
+.edited {
+    color: orange;
+}
+
+.removed {
+    color: red;
+}
+
+.added, .edited, .removed {
+    font-weight: bold;
+    margin-left: 3%;
+}

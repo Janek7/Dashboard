@@ -32,7 +32,7 @@ $pages = [
         "2", "<link rel=\"stylesheet\" href=\"css/codingProject.css\">",
         "<script src=\"js/codingProjectPage.js\"></script>"),
     'changelog' => new Page("Changelog", "Übersicht zu Veränderungen", "changelog",
-        null, "", ""),
+        null, "<link rel=\"stylesheet\" href=\"css/changelog.css\">", ""),
 ];
 
 class Page

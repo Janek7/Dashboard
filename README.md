@@ -12,10 +12,7 @@ General information and a timeline of all projects <br/> <br/>
 A page for each project with detailed information <br/> <br/>
 <img src="https://i.imgur.com/M9sPztH.png" height="400" width="800" alt="coding project">
 
-## Installation on a Webserver:
-+ clone project in your directory ``git clone https://github.com/Janek7/Dashboard.git``
-+ create a file named ``config.php`` in the root directory and fill with your customized data 
-structured like ``configExample.php``
-+ run sql statements from ``database/table_scripts.sql`` on your mysql server
-+ download and unzip the [AdminLTE 2.3.11](https://github.com/almasaeed2010/AdminLTE/releases/tag/v2.3.11) dashboard 
-template in a directory named ``adminlte`` in the root directory
+## Used assets
++ [AdminLTE 2.3.11](https://github.com/almasaeed2010/AdminLTE/releases/tag/v2.3.11) dashboard 
+  template
++ [jQuery](http://jquery.com/)

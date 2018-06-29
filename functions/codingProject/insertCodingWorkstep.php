@@ -25,4 +25,5 @@ if (isset($workstepText) && isset($startDate) && isset($endDate)) {
     echo "error, ungültige Parameter";
 }
 
-header("Location: coding/project/$projectTitle");
+header("Location: ../../index.php?page=codingProject&project=$projectTitle");
+//header("Location: coding/project/$projectTitle");
