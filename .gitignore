@@ -1,7 +1,15 @@
-.idea
+# Assets
+assets/
 adminlte/
+
+# Sensible data
 config.php
 ideen
+
+# Other
 test.html
 test.php
-assets
+database/ermodel.xlsx
+
+# IDE
+.idea
